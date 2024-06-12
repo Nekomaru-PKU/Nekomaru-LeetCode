@@ -1,5 +1,12 @@
 mod solution {
-    pub fn main(mut board: Vec<Vec<char>>) -> i32 {
+    pub fn main(board: Vec<Vec<char>>) -> i32 {
+        #[allow(path_statements)] {
+            self::main_3pass;
+            self::main_2pass(board)
+        }
+    }
+
+    pub fn main_3pass(mut board: Vec<Vec<char>>) -> i32 {
         /// `O` for empty, `X` for battle ship.
         #[derive(Debug, Clone, Copy, PartialEq, Eq)]
         enum History { O, OX, XX }
@@ -59,6 +66,47 @@ mod solution {
 
         total += board.iter().flatten().filter(|&&c| c == 'X').count() as i32;
         total
+    }
+
+    pub fn main_2pass(mut board: Vec<Vec<char>>) -> i32 {
+        let rows = board.len();
+        let columns = board[0].len();
+
+        let mut count = 0;
+        for column in 0..columns {
+            let mut prev_parts: u32 = 0;
+            for row in 0..rows {
+                match board[row][column] {
+                    'X' => {
+                        match prev_parts {
+                            0 => (),
+                            1 => {
+                                count += 1;
+                                board[row - 1][column] = '.';
+                                board[row][column] = '.';
+                            },
+                            2.. => {
+                                board[row][column] = '.';
+                            },
+                        }
+                        prev_parts += 1;
+                    },
+                    _ => prev_parts = 0,
+                }
+            }
+        }
+
+        for row in &board {
+            let mut prev_empty = true;
+            for &c in row {
+                if prev_empty && c == 'X' {
+                    count += 1;
+                }
+                prev_empty = c != 'X';
+            }
+        }
+
+        count
     }
 }
 
