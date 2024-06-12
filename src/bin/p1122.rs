@@ -18,11 +18,9 @@ mod solution {
             count[item as usize] = VISITED;
         }
 
-        for i in 0..count.len() {
-            if count[i] != VISITED {
-                for _ in 0..count[i] {
-                    output.push(i as i32);
-                }
+        for (i, &count) in count.iter().enumerate() {
+            for _ in 0..count {
+                output.push(i as i32);
             }
         }
 

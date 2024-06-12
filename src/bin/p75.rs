@@ -1,3 +1,5 @@
+#![allow(clippy::ptr_arg)]
+
 mod solution {
     pub fn main(nums: &mut Vec<i32>) {
         #[allow(path_statements)] {

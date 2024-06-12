@@ -16,10 +16,10 @@ mod solution {
 
         let mut total = 0;
 
-        for i in 0..rows {
+        for row in &mut board {
             let mut history = History::O;
             for j in 0..columns {
-                match board[i][j] {
+                match row[j] {
                     '.' => history = History::O,
                     'X' => match history {
                         History::O => {
@@ -28,11 +28,11 @@ mod solution {
                         History::OX => {
                             history = History::XX;
                             total += 1;
-                            board[i][j - 1] = '.';
-                            board[i][j] = '.';
+                            row[j - 1] = '.';
+                            row[j] = '.';
                         },
                         History::XX => {
-                            board[i][j] = '.';
+                            row[j] = '.';
                         },
                     },
                     _ => unreachable!(),
