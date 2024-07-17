@@ -1,5 +1,5 @@
 mod solution {
-    use leetcode::binary_tree::*;
+    use leetcode::binary_tree::prelude::*;
 
     pub fn main(
         root: Option<Rc<RefCell<TreeNode>>>,
@@ -61,5 +61,13 @@ mod solution {
 }
 
 fn main() {
-    let _ = solution::main(None, 0, 0);
+    use leetcode::binary_tree;
+    assert_eq!(
+        solution::main(
+            binary_tree::from_vec(vec![5, 1, 2, 3, 0, 6, 4]), 3, 6),
+        String::from("UURL"));
+    assert_eq!(
+        solution::main(
+            binary_tree::from_vec(vec![2, 1]), 2, 1),
+        String::from("L"));
 }

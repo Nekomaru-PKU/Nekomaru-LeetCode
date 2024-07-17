@@ -1,3 +1,12 @@
+pub mod binary_tree;
+
+pub mod vec {
+    pub fn eq_any_order<T: PartialEq>(v1: Vec<T>, v2: Vec<T>) -> bool {
+        v1.iter().all(|item| v2.contains(item)) &&
+        v2.iter().all(|item| v1.contains(item))
+    }
+}
+
 pub fn print_time<T, F: FnOnce() -> T>(name: &str, inner_fn: F) -> T {
     use std::time::Instant;
     let s = Instant::now();
@@ -7,25 +16,3 @@ pub fn print_time<T, F: FnOnce() -> T>(name: &str, inner_fn: F) -> T {
     o
 }
 
-pub mod binary_tree {
-    pub use std::{
-        rc::Rc,
-        cell::RefCell,
-    };
-
-    pub struct TreeNode {
-        pub val: i32,
-        pub left: Option<Rc<RefCell<TreeNode>>>,
-        pub right: Option<Rc<RefCell<TreeNode>>>,
-    }
-    
-    impl TreeNode {
-        pub fn new(val: i32) -> Self {
-            TreeNode {
-                val,
-                left: None,
-                right: None
-            }
-        }
-    }
-}

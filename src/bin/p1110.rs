@@ -1,5 +1,5 @@
 mod solution {
-    use leetcode::binary_tree::*;
+    use leetcode::binary_tree::prelude::*;
 
     use std::collections::HashMap;
 
@@ -19,7 +19,7 @@ mod solution {
         *has_parent.get_mut(&root.unwrap().borrow().val).unwrap() = false;
 
         for val in to_delete {
-            if let Some(parent_val) = parent_map.get(&val) {
+            if let Some(&parent_val) = parent_map.get(&val) {
                 let parent: &mut TreeNode = &mut ptr_map[&parent_val].borrow_mut();
                 if let Some(ref child) = parent.left {
                     if child.borrow().val == val {
@@ -66,7 +66,7 @@ mod solution {
 
         let mut map = HashMap::new();
         if let Some(root) = root {
-            visit(&root, &mut map);
+            visit(root, &mut map);
         }
         map
     }
@@ -88,13 +88,27 @@ mod solution {
 
         let mut map = HashMap::new();
         if let Some(root) = root {
-            visit(&root, &mut map);
+            visit(root, &mut map);
         }
         map
     }
 }
 
 fn main() {
-    use leetcode::binary_tree::*;
-    let _ = solution::main(Some(Rc::new(RefCell::new(TreeNode { val: 0, left: Some(Rc::new(RefCell::new(TreeNode { val: 1, left: None, right: None }))), right: None }))), vec![0]);
+    use leetcode::vec;
+    use leetcode::binary_tree;
+    assert!(vec::eq_any_order(
+        solution::main(
+            binary_tree::from_vec(vec![1, 2, 3, 4, 5, 6, 7]), vec![3, 5]),
+        vec![
+            binary_tree::from_vec(vec![1, 2, 0, 4]),
+            binary_tree::from_vec(vec![6]),
+            binary_tree::from_vec(vec![7]),
+        ]));
+    assert!(vec::eq_any_order(
+        solution::main(
+            binary_tree::from_vec(vec![1, 2, 4, 0, 3]), vec![3]),
+        vec![
+            binary_tree::from_vec(vec![1, 2, 4]),
+        ]));
 }
