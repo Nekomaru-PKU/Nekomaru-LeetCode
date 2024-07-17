@@ -229,7 +229,7 @@ mod trie {
     }
 }
 
-use nekomaru_leetcode::print_time;
+use leetcode::print_time;
 
 fn main() {
     test_example_1();

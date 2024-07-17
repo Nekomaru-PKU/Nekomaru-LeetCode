@@ -1,24 +1,5 @@
 mod solution {
-    use std::{
-        rc::Rc,
-        cell::RefCell,
-    };
-
-    pub struct TreeNode {
-        pub val: i32,
-        pub left: Option<Rc<RefCell<TreeNode>>>,
-        pub right: Option<Rc<RefCell<TreeNode>>>,
-    }
-    
-    impl TreeNode {
-        pub fn new(val: i32) -> Self {
-            TreeNode {
-                val,
-                left: None,
-                right: None
-            }
-        }
-    }
+    use leetcode::binary_tree::*;
 
     pub fn main(
         root: Option<Rc<RefCell<TreeNode>>>,
@@ -47,7 +28,7 @@ mod solution {
         use std::iter;
         String::from_utf8(iter::repeat(b'U')
             .take(root_to_src.len() - ancester_count)
-            .chain(root_to_dst[ancester_count..].iter().map(|c| *c))
+            .chain(root_to_dst[ancester_count..].iter().copied())
             .collect()).unwrap()
     }
 
