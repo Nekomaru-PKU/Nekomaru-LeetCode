@@ -12,17 +12,17 @@ mod solution {
             node: &TreeNodeRc,
             leafs: &mut Vec<TreeNodeRc>,
             parents: &mut TreeNodeParentMap) {
-            if let &TreeNode { val: _, left: None, right: None } = &*node.borrow() {
-                leafs.push(node.clone());
-            } else {
-                if let Some(ref child) = node.borrow().left {
-                    parents.insert(Rc::as_ptr(child), node.clone());
-                    traverse_and_collect_leafs_and_parents(child, leafs, parents);
-                }
-                if let Some(ref child) = node.borrow().right {
-                    parents.insert(Rc::as_ptr(child), node.clone());
-                    traverse_and_collect_leafs_and_parents(child, leafs, parents);
-                }
+            match *node.borrow() {
+                TreeNode { val: _, left: None, right: None } =>
+                    leafs.push(node.clone()),
+                TreeNode { val: _, ref left, ref right } =>
+                    [left, right]
+                        .into_iter()
+                        .flat_map(|child| child.as_ref())
+                        .for_each(|child| {
+                            parents.insert(Rc::as_ptr(child), node.clone());
+                            traverse_and_collect_leafs_and_parents(child, leafs, parents);
+                        }),
             }
         }
 
@@ -42,26 +42,17 @@ mod solution {
             prev: TreeNodeOpaquePtr,
             steps: i32,
             parents: &TreeNodeParentMap) -> i32 {
-            #[cfg(debug_assertions)]
-            println!("search val={}, steps={}", node.borrow().val, steps);
-
-            (if let &TreeNode { val: _, left: None, right: None } = &*node.borrow() {
-                if Rc::as_ptr(node) != prev {
-                    #[cfg(debug_assertions)]
-                    println!("found val={}", node.borrow().val);
-                    1
-                } else {0}
-            } else {0}) +
-            (if steps >= 1 {[
-                node.borrow().left.as_ref(),
-                node.borrow().right.as_ref(),
-                parents.get(&Rc::as_ptr(node)),
-            ]
-                .into_iter()
-                .flatten()
-                .filter(|next| Rc::as_ptr(next) != prev)
-                .map(|next| search(next, Rc::as_ptr(node), steps - 1, parents))
-                .sum()
+            let TreeNode { val: _, ref left, ref right } = *node.borrow();
+            let node_ptr = Rc::as_ptr(node);
+            (if node_ptr != prev && left.is_none() && right.is_none() {1} else {0}) +
+            (if steps >= 1 {
+                [left, right]
+                    .into_iter()
+                    .flat_map(|child| child.as_ref())
+                    .chain(parents.get(&node_ptr))
+                    .filter(|next| Rc::as_ptr(next) != prev)
+                    .map(|next| search(next, node_ptr, steps - 1, parents))
+                    .sum()
             } else {0})
         }
 

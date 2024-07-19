@@ -1,96 +1,93 @@
 mod solution {
     use leetcode::binary_tree::prelude::*;
 
-    use std::collections::HashMap;
-
     pub fn main(
         root: Option<Rc<RefCell<TreeNode>>>,
         to_delete: Vec<i32>,
     ) -> Vec<Option<Rc<RefCell<TreeNode>>>> {
+        use std::collections::HashMap;
         use std::iter;
 
-        let ptr_map = gather_ptr_map(&root);
-        let parent_map = gather_parent_map(&root);
+        type TreeNodeRc = Rc<RefCell<TreeNode>>;
+        type TreeNodeOpaquePtr = *const RefCell<TreeNode>;
 
-        let mut has_parent = ptr_map.keys()
-            .cloned()
+        fn traverse_and_collect_nodes_and_parents(
+            node: &TreeNodeRc,
+            nodes: &mut HashMap<i32, TreeNodeRc>,
+            parents: &mut HashMap<TreeNodeOpaquePtr, TreeNodeRc>) {
+            let TreeNode { val, ref left, ref right } = *node.borrow();
+            nodes.insert(val, node.clone());
+            [left, right]
+                .into_iter()
+                .flat_map(|child| child.as_ref())
+                .for_each(|child| {
+                    parents.insert(Rc::as_ptr(child), node.clone());
+                    traverse_and_collect_nodes_and_parents(child, nodes, parents);
+                });
+        }
+
+        let (nodes, parents) = {
+            let mut nodes = HashMap::new();
+            let mut parents = HashMap::new();
+            traverse_and_collect_nodes_and_parents(
+                root.as_ref().unwrap(),
+                &mut nodes,
+                &mut parents);
+            (nodes, parents)
+        };
+
+        let mut has_parent = nodes
+            .values()
+            .map(Rc::as_ptr)
             .zip(iter::repeat(true))
             .collect::<HashMap<_, _>>();
-        *has_parent.get_mut(&root.unwrap().borrow().val).unwrap() = false;
+        has_parent
+            .get_mut(&Rc::as_ptr(root.as_ref().unwrap()))
+            .map(|val| *val = false)
+            .unwrap();
 
         for val in to_delete {
-            if let Some(&parent_val) = parent_map.get(&val) {
-                let parent: &mut TreeNode = &mut ptr_map[&parent_val].borrow_mut();
-                if let Some(ref child) = parent.left {
-                    if child.borrow().val == val {
-                        parent.left = None;
-                    }
-                }
-                if let Some(ref child) = parent.right {
-                    if child.borrow().val == val {
-                        parent.right = None;
-                    }
-                }
+            let node = &nodes[&val];
+            let node_ptr = Rc::as_ptr(node);
+
+            // update tree structure
+            if let Some(parent) = parents.get(&node_ptr) {
+                let TreeNode {
+                    val: _,
+                    ref mut left,
+                    ref mut right,
+                } = *parent.borrow_mut();
+                [left, right]
+                    .into_iter()
+                    .filter(|child| child
+                        .as_ref()
+                        .map(|child| child.borrow().val == val)
+                        .unwrap_or_default())
+                    .for_each(|child| *child = None);
             }
 
-            let node = &*ptr_map[&val].borrow();
-            has_parent.remove(&val);
-            if let Some(ref child) = node.left {
-                *has_parent.get_mut(&child.borrow().val).unwrap() = false;
-            }
-            if let Some(ref child) = node.right {
-                *has_parent.get_mut(&child.borrow().val).unwrap() = false;
+            // update `has_parent`
+            has_parent.remove(&node_ptr); {
+                let TreeNode { val: _, ref left, ref right } = *node.borrow();
+                [left, right]
+                    .into_iter()
+                    .flat_map(|child| child.as_ref())
+                    .for_each(|child| has_parent
+                        .get_mut(&Rc::as_ptr(child))
+                        .map(|val| *val = false)
+                        .unwrap());
             }
         }
 
-        has_parent.into_iter()
-            .filter(|(_, has_parent)| !has_parent)
-            .map(|(val, _)| Some(ptr_map[&val].clone()))
+        nodes.values()
+            .filter(|&node| has_parent
+                .get(&Rc::as_ptr(node))
+                .cloned()
+                .map(|has_parent| !has_parent)
+                .unwrap_or_default())
+            .cloned()
+            .map(Option::Some)
             .collect()
-    }
-
-    fn gather_ptr_map(root: &Option<Rc<RefCell<TreeNode>>>) -> HashMap<i32, Rc<RefCell<TreeNode>>> {
-        fn visit(
-            node: &Rc<RefCell<TreeNode>>,
-            map: &mut HashMap<i32, Rc<RefCell<TreeNode>>>) {
-            let node_cloned = node.clone();
-            let node = &*node.borrow();
-            map.insert(node.val, node_cloned);
-            if let Some(ref node) = node.left {
-                visit(node, map);
-            }
-            if let Some(ref node) = node.right {
-                visit(node, map);
-            }
-        }
-
-        let mut map = HashMap::new();
-        if let Some(root) = root {
-            visit(root, &mut map);
-        }
-        map
-    }
-
-    fn gather_parent_map(root: &Option<Rc<RefCell<TreeNode>>>) -> HashMap<i32, i32> {
-        fn visit(
-            node: &Rc<RefCell<TreeNode>>,
-            map: &mut HashMap<i32, i32>) {
-            let node = &*node.borrow();
-            if let Some(ref child) = node.left {
-                map.insert(child.borrow().val, node.val);
-                visit(child, map);
-            }
-            if let Some(ref child) = node.right {
-                map.insert(child.borrow().val, node.val);
-                visit(child, map);
-            }
-        }
-
-        let mut map = HashMap::new();
-        if let Some(root) = root {
-            visit(root, &mut map);
-        }
-        map
     }
 }
 
