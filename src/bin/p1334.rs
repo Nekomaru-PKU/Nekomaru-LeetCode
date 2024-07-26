@@ -1,26 +1,3 @@
-mod solution {
-    use super::shortest_path;
-
-    pub fn main(
-        n: i32,
-        edges: Vec<Vec<i32>>,
-        threshold: i32)
-     -> i32 {
-        let n = n as usize;
-        let dist = shortest_path::floyd_undirected(
-            n,
-            edges.iter().map(|edge| (
-                edge[0] as _,
-                edge[1] as _,
-                edge[2] as _)));
-        (0..n).rev().min_by_key(|&j| {
-            (0..n)
-                .filter(|&i| dist[i][j] <= threshold)
-                .count()
-        }).unwrap() as _
-    }
-}
-
 mod shortest_path {
     #[inline]
     #[allow(dead_code)]
@@ -79,14 +56,33 @@ mod shortest_path {
     }
 }
 
+fn solution(
+    n: i32,
+    edges: Vec<Vec<i32>>,
+    threshold: i32)
+ -> i32 {
+    let n = n as usize;
+    let dist = shortest_path::floyd_undirected(
+        n,
+        edges.iter().map(|edge| (
+            edge[0] as _,
+            edge[1] as _,
+            edge[2] as _)));
+    (0..n).rev().min_by_key(|&j| {
+        (0..n)
+            .filter(|&i| dist[i][j] <= threshold)
+            .count()
+    }).unwrap() as _
+}
+
 fn main() {
-    assert_eq!(solution::main(4, vec![
+    assert_eq!(solution(4, vec![
         vec![0, 1, 3],
         vec![1, 2, 1],
         vec![1, 3, 4],
         vec![2, 3, 1],
     ], 4), 3);
-    assert_eq!(solution::main(5, vec![
+    assert_eq!(solution(5, vec![
         vec![0, 1, 2],
         vec![0, 4, 8],
         vec![1, 2, 3],

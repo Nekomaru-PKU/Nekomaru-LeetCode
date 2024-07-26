@@ -1,38 +1,9 @@
-mod solution {
-    use std::iter;
-
-    use super::heap_sort;
-
-    pub fn main(nums: Vec<i32>) -> Vec<i32> {
-        const OFFSET: usize = 50003;
-        let mut freq = vec![0; 100007];
-        for &num in &nums {
-            freq[num as usize + OFFSET] += 1;
-        }
-        freq.iter()
-            .enumerate()
-            .flat_map(|(num, &freq)| iter::repeat((num - OFFSET) as _).take(freq as _))
-            .collect()
-    }
-
-    pub fn main_heap_sort(mut nums: Vec<i32>) -> Vec<i32> {
-        // the problem requires a sorting algorithm with O(nlogn) time complexity
-        // and least possible space complexity, which is O(1).
-        // so, we cannot use these popular sorting algorithms:
-        // - quick sort, for its worst case time complexity being O(n^2);
-        // - merge sort, for its space complexity is not O(1).
-        // therefore, we implement heap sort, which satisfies all the requirements.
-        heap_sort::heap_sort(&mut nums);
-        nums
-    }
-}
-
 mod heap_sort {
     /// Heap-sort the given slice in ascending order.
     /// 
     /// The implementation is based on the *standard implementation* mentioned in
     /// [Heapsort - Wikipedia](https://en.wikipedia.org/wiki/Heapsort).
-    pub fn heap_sort<T: Ord>(data: &mut [T]) {
+    pub fn sort<T: Ord>(data: &mut [T]) {
         let mut begin = data.len() / 2;
         let mut end = data.len();
         while end > 1 {
@@ -65,17 +36,42 @@ mod heap_sort {
     }
 }
 
+use std::iter;
+
+fn solution_heap_sort(mut nums: Vec<i32>) -> Vec<i32> {
+    // the problem requires a sorting algorithm with O(nlogn) time complexity
+    // and least possible space complexity, which is O(1).
+    // so, we cannot use these popular sorting algorithms:
+    // - quick sort, for its worst case time complexity being O(n^2);
+    // - merge sort, for its space complexity is not O(1).
+    // therefore, we implement heap sort, which satisfies all the requirements.
+    heap_sort::sort(&mut nums);
+    nums
+}
+
+fn solution_counting_sort(nums: Vec<i32>) -> Vec<i32> {
+    const OFFSET: usize = 50003;
+    let mut freq = vec![0; 100007];
+    for &num in &nums {
+        freq[num as usize + OFFSET] += 1;
+    }
+    freq.iter()
+        .enumerate()
+        .flat_map(|(num, &freq)| iter::repeat((num - OFFSET) as _).take(freq as _))
+        .collect()
+}
+
 fn main() {
-    assert_eq!(solution::main(
+    assert_eq!(solution_counting_sort(
         vec![5, 2, 3, 1]),
         vec![1, 2, 3, 5]);
-    assert_eq!(solution::main(
+    assert_eq!(solution_counting_sort(
         vec![5, 1, 1, 2, 0, 0]),
         vec![0, 0, 1, 1, 2, 5]);
-    assert_eq!(solution::main_heap_sort(
+    assert_eq!(solution_heap_sort(
         vec![5, 2, 3, 1]),
         vec![1, 2, 3, 5]);
-    assert_eq!(solution::main_heap_sort(
+    assert_eq!(solution_heap_sort(
         vec![5, 1, 1, 2, 0, 0]),
         vec![0, 0, 1, 1, 2, 5]);
 }
