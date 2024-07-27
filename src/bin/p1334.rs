@@ -11,8 +11,7 @@ mod shortest_path {
             dist[i][i] = 0;
         }
         for (i, j, weight) in edges {
-            dist[i][j] = weight;
-            dist[j][i] = weight;
+            dist[i][j] = dist[i][j].min(weight);
         }
         for k in 0..n {
             for i in 0..n {
