@@ -75,18 +75,19 @@ fn solution(
 }
 
 fn main() {
-    assert_eq!(solution(4, vec![
-        vec![0, 1, 3],
-        vec![1, 2, 1],
-        vec![1, 3, 4],
-        vec![2, 3, 1],
-    ], 4), 3);
-    assert_eq!(solution(5, vec![
-        vec![0, 1, 2],
-        vec![0, 4, 8],
-        vec![1, 2, 3],
-        vec![1, 4, 2],
-        vec![2, 3, 1],
-        vec![3, 4, 1],
-    ], 2), 0);
+    use leetcode::Input;
+    assert_eq!(solution(4, [
+        [0, 1, 3],
+        [1, 2, 1],
+        [1, 3, 4],
+        [2, 3, 1],
+    ].input(), 4), 3);
+    assert_eq!(solution(5, [
+        [0, 1, 2],
+        [0, 4, 8],
+        [1, 2, 3],
+        [1, 4, 2],
+        [2, 3, 1],
+        [3, 4, 1],
+    ].input(), 2), 0);
 }

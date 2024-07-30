@@ -59,8 +59,8 @@ fn solution(
 
 fn main() {
     assert_eq!(solution(
-        "abcd".to_string(),
-        "acbe".to_string(),
+        "abcd".into(),
+        "acbe".into(),
         "abcced".chars().collect(),
         "bcbebe".chars().collect(),
         vec![2, 5, 5, 1, 2, 20]),

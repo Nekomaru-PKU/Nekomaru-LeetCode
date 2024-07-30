@@ -9,16 +9,13 @@ fn solution(names: Vec<String>, heights: Vec<i32>) -> Vec<String> {
 }
 
 fn main() {
-    fn vec_of_string(vec: &[&'static str]) -> Vec<String> {
-        vec.iter().cloned().map(Into::into).collect()
-    }
-
+    use leetcode::Input;
     assert_eq!(solution(
-        vec_of_string(&["Mary","John","Emma"]),
-        vec![180, 165, 170]),
-        vec_of_string(&["Mary","Emma","John"]));
+        ["Mary","John","Emma"].input(),
+        [180, 165, 170].input()),
+        ["Mary","Emma","John"].input());
     assert_eq!(solution(
-        vec_of_string(&["Alice","Bob","Bob"]),
-        vec![155,185,150]),
-        vec_of_string(&["Bob","Alice","Bob"]));
+        ["Alice","Bob","Bob"].input(),
+        [155, 185, 150].input()),
+        ["Bob","Alice","Bob"].input());
 }

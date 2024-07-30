@@ -108,28 +108,8 @@ fn solution(
 }
 
 fn main() {
-    assert_eq!(solution(
-        5,
-        [[1, 2], [1, 3], [1, 4], [3, 4], [4, 5]].iter()
-            .map(|vec| vec.to_vec())
-            .collect(),
-        3,
-        5),
-        13);
-    assert_eq!(solution(
-        2,
-        [[1, 2]].iter()
-            .map(|vec| vec.to_vec())
-            .collect(),
-        3,
-        2),
-        11);
-    assert_eq!(solution(
-        6,
-        [[1, 2], [1, 3], [2, 4], [3, 5], [5, 4], [4, 6]].iter()
-            .map(|vec| vec.to_vec())
-            .collect(),
-        3,
-        100),
-        12);
+    use leetcode::Input;
+    assert_eq!(solution(5, [[1, 2], [1, 3], [1, 4], [3, 4], [4, 5]].input(), 3, 5), 13);
+    assert_eq!(solution(2, [[1, 2]].input(), 3, 2), 11);
+    assert_eq!(solution(6, [[1, 2], [1, 3], [2, 4], [3, 5], [5, 4], [4, 6]].input(), 3, 100), 12);
 }
