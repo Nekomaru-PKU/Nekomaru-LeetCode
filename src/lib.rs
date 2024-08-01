@@ -11,6 +11,18 @@ impl<T, U: Input<T>, const N: usize> Input<Vec<T>> for [U; N] {
 
 pub mod binary_tree;
 
+pub mod linked_list {
+    #[derive(PartialEq, Eq, Clone, Debug)]
+    pub struct ListNode {
+        pub val: i32,
+        pub next: Option<Box<ListNode>>
+    }
+
+    impl ListNode {
+        pub fn new(val: i32) -> Self { ListNode { next: None, val } }
+    }
+}
+
 pub mod vec {
     pub fn eq_any_order<T: PartialEq>(v1: Vec<T>, v2: Vec<T>) -> bool {
         v1.iter().all(|item| v2.contains(item)) &&
