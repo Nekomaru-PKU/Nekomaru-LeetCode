@@ -50,7 +50,7 @@ mod fast_hash {
     pub type FastHashMap<K, V> = HashMap<K, V, BuildHasherDefault<FastHasher<K>>>;
 }
 
-use leetcode::print_time;
+use leetcode::perf::print_time;
 
 fn main() {
     assert_eq!(solution::main(vec![4, 5, 0, -2, -3, 1], 5), 7);

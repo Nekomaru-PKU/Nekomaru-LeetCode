@@ -9,7 +9,7 @@ fn solution(names: Vec<String>, heights: Vec<i32>) -> Vec<String> {
 }
 
 fn main() {
-    use leetcode::Input;
+    use leetcode::input::Input;
     assert_eq!(solution(
         ["Mary","John","Emma"].input(),
         [180, 165, 170].input()),

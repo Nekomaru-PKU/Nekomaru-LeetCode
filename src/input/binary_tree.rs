@@ -1,27 +1,4 @@
-pub mod prelude {
-    pub use std::rc::Rc;
-    pub use std::cell::RefCell;
-    pub use super::TreeNode;
-}
-
-use prelude::*;
-
-#[derive(Debug, PartialEq, Eq)]
-pub struct TreeNode {
-    pub val: i32,
-    pub left: Option<Rc<RefCell<TreeNode>>>,
-    pub right: Option<Rc<RefCell<TreeNode>>>,
-}
-
-impl TreeNode {
-    pub fn new(val: i32) -> Self {
-        TreeNode {
-            val,
-            left: None,
-            right: None
-        }
-    }
-}
+use crate::types::binary_tree::prelude::*;
 
 pub fn from_vec(vec: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
     if let Some(&root_val) = vec.first() {

@@ -75,7 +75,7 @@ fn solution(
 }
 
 fn main() {
-    use leetcode::Input;
+    use leetcode::input::Input;
     assert_eq!(solution(4, [
         [0, 1, 3],
         [1, 2, 1],

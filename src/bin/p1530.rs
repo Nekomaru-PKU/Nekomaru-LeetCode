@@ -1,5 +1,5 @@
 mod solution {
-    use leetcode::binary_tree::prelude::*;
+    use leetcode::types::binary_tree::prelude::*;
 
     pub fn main(root: Option<Rc<RefCell<TreeNode>>>, distance: i32) -> i32 {
         use std::collections::HashMap;
@@ -63,7 +63,7 @@ mod solution {
 }
 
 fn main() {
-    use leetcode::binary_tree;
+    use leetcode::input::binary_tree;
     assert_eq!(solution::main(binary_tree::from_vec(vec![1, 2, 3, 0, 4]), 3), 1);
     assert_eq!(solution::main(binary_tree::from_vec(vec![1, 2, 3, 4, 5, 6, 7]), 3), 2);
     assert_eq!(solution::main(binary_tree::from_vec(vec![7, 1, 4, 6, 0, 5, 3, 0, 0, 0, 0, 0, 2]), 3), 1);

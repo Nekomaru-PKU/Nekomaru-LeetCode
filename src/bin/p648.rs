@@ -229,7 +229,7 @@ mod trie {
     }
 }
 
-use leetcode::print_time;
+use leetcode::perf::print_time;
 
 fn main() {
     test_example_1();

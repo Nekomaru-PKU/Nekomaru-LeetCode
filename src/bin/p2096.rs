@@ -1,5 +1,5 @@
 mod solution {
-    use leetcode::binary_tree::prelude::*;
+    use leetcode::types::binary_tree::prelude::*;
 
     pub fn main(
         root: Option<Rc<RefCell<TreeNode>>>,
@@ -61,7 +61,7 @@ mod solution {
 }
 
 fn main() {
-    use leetcode::binary_tree;
+    use leetcode::input::binary_tree;
     assert_eq!(
         solution::main(
             binary_tree::from_vec(vec![5, 1, 2, 3, 0, 6, 4]), 3, 6),

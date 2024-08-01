@@ -18,7 +18,7 @@ mod solution {
     }
 }
 
-use leetcode::print_time;
+use leetcode::perf::print_time;
 
 fn main() {
     assert_eq!(solution::main(vec![1, 2], 3), 1);

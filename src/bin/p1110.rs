@@ -1,5 +1,5 @@
 mod solution {
-    use leetcode::binary_tree::prelude::*;
+    use leetcode::types::binary_tree::prelude::*;
 
     pub fn main(
         root: Option<Rc<RefCell<TreeNode>>>,
@@ -92,9 +92,9 @@ mod solution {
 }
 
 fn main() {
-    use leetcode::vec;
-    use leetcode::binary_tree;
-    assert!(vec::eq_any_order(
+    use leetcode::cmp;
+    use leetcode::input::binary_tree;
+    assert!(cmp::eq_any_order(
         solution::main(
             binary_tree::from_vec(vec![1, 2, 3, 4, 5, 6, 7]), vec![3, 5]),
         vec![
@@ -102,7 +102,7 @@ fn main() {
             binary_tree::from_vec(vec![6]),
             binary_tree::from_vec(vec![7]),
         ]));
-    assert!(vec::eq_any_order(
+    assert!(cmp::eq_any_order(
         solution::main(
             binary_tree::from_vec(vec![1, 2, 4, 0, 3]), vec![3]),
         vec![

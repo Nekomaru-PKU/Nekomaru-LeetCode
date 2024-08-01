@@ -57,7 +57,7 @@ fn solution(books: Vec<Vec<i32>>, shelf_width: i32) -> i32 {
 }
 
 fn main() {
-    use leetcode::Input;
+    use leetcode::input::Input;
     assert_eq!(solution([[1, 1], [2, 3], [2, 3], [1, 1], [1, 1], [1, 1], [1, 2]].input(), 4), 6);
     assert_eq!(solution([[1, 3], [2, 4], [3, 2]].input(), 6), 4);
 }
