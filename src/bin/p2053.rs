@@ -22,8 +22,7 @@ fn solution(arr: Vec<String>, k: i32) -> String {
     #[cfg(debug_assertions)] println!("{vec:?}");
     vec .into_iter()
         .map(|(str, _)| str)
-        .skip((k - 1) as _)
-        .next()
+        .nth((k - 1) as _)
         .unwrap_or_default()
 }
 

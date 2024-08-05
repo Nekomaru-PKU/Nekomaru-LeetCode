@@ -24,6 +24,7 @@ fn solution_core(
         let m0i1 = arr1.binary_search(&m0).unwrap_or_else(|i| i);
         let m1i0 = arr0.binary_search(&m1).unwrap_or_else(|i| i);
 
+        #[allow(clippy::collapsible_else_if)]
         if m0 <= m1 {
             if k < m0i0 + m0i1 {
                 arr0 = &arr0[..m0i0];
