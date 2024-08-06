@@ -14,7 +14,7 @@ fn solution(s: String) -> i32 {
 
     let mut x = 0i32;
     for c in s {
-        let digit = if (b'0'..=b'9').contains(c) {
+        let digit = if c.is_ascii_digit() {
             c - b'0'
         } else {
             break
