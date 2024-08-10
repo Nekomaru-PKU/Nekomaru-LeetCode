@@ -2,7 +2,7 @@ mod solution {
     use super::graph;
 
     pub fn main(grid: Vec<String>) -> i32 {
-        let mut edges = Vec::with_capacity(
+        let mut graph = graph::GraphBuilder::with_capacity(
             grid.len() *
             grid.first().unwrap().len() * 8);
         for (row, s) in grid.iter().enumerate() {
@@ -15,28 +15,25 @@ mod solution {
                 let ve = vertex_id(row, col, Side::E);
                 match c {
                     ' ' => {
-                        edges.push((vn, vw));
-                        edges.push((vw, vs));
-                        edges.push((vs, ve));
-                        edges.push((ve, vn));
+                        graph.insert_edge_undirected(vn, vw);
+                        graph.insert_edge_undirected(vw, vs);
+                        graph.insert_edge_undirected(vs, ve);
+                        graph.insert_edge_undirected(ve, vn);
                     },
                     '/'  => {
-                        edges.push((vn, vw));
-                        edges.push((vs, ve));
+                        graph.insert_edge_undirected(vn, vw);
+                        graph.insert_edge_undirected(vs, ve);
                     },
                     '\\' => {
-                        edges.push((vn, ve));
-                        edges.push((vs, vw));
+                        graph.insert_edge_undirected(vn, ve);
+                        graph.insert_edge_undirected(vs, vw);
                     },
                     _ => unreachable!("invalid input"),
                 }
             }
         }
-        graph::algorithm::num_connected_components(
-            &graph::Graph::from_edges(
-                edges.iter().cloned().chain(
-                    edges.iter().map(|&(from, to)| (to, from))))
-        ) as _
+
+        graph::algorithm::num_connected_components(&graph.build()) as _
     }
 
     enum Side { N, W, S, E }
@@ -52,6 +49,8 @@ mod solution {
 }
 
 mod graph {
+    #![allow(dead_code)]
+
     use std::{
         collections::{
             HashMap,
@@ -66,9 +65,36 @@ mod graph {
         edge_ranges: HashMap<T, Range<usize>>,
     }
 
-    impl<T: Clone + Eq + Ord + Hash> Graph<T> {
-        pub fn from_edges(edges: impl Iterator<Item = (T, T)>) -> Self {
-            let mut edges = edges.collect::<Vec<_>>();
+    pub struct GraphBuilder<T> {
+        edges: Vec<(T, T)>,
+    }
+
+    impl<T> GraphBuilder<T> {
+        pub fn new() -> Self {
+            Self { edges: Vec::new() }
+        }
+
+        pub fn with_capacity(capacity: usize) -> Self {
+            Self { edges: Vec::with_capacity(capacity) }
+        }
+    }
+
+    impl<T> GraphBuilder<T> {
+        pub fn insert_edge(&mut self, from: T, to: T) {
+            self.edges.push((from, to));
+        }
+    }
+
+    impl<T: Clone> GraphBuilder<T> {
+        pub fn insert_edge_undirected(&mut self, from: T, to: T) {
+            self.edges.push((from.clone(), to.clone()));
+            self.edges.push((to, from));
+        }
+    }
+
+    impl<T: Clone + Eq + Ord + Hash> GraphBuilder<T> {
+        pub fn build(self) -> Graph<T> {
+            let mut edges = self.edges;
             edges.sort_unstable_by_key(|(from, _)| from.clone());
 
             let mut edge_ranges = HashMap::new();
@@ -88,7 +114,7 @@ mod graph {
             edges.shrink_to_fit();
             edge_ranges.shrink_to_fit();
 
-            Self { edges, edge_ranges }
+            Graph { edges, edge_ranges }
         }
     }
 
