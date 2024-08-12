@@ -1,0 +1,48 @@
+use std::collections::BinaryHeap;
+use std::cmp::Reverse;
+
+struct KthLargest(BinaryHeap<Reverse<i32>>);
+
+impl KthLargest {
+    fn new(k: i32, mut nums: Vec<i32>) -> Self {
+        while nums.len() < k as _ {
+            nums.push(i32::MIN);
+        }
+        nums.sort_unstable();
+        Self(nums
+            .iter()
+            .rev()
+            .take(k as _)
+            .map(|&num| Reverse(num))
+            .collect())
+    }
+
+    fn add(&mut self, num: i32) -> i32 {
+        self.0.push(Reverse(num));
+        self.0.pop();
+        self.0.peek().cloned().unwrap().0
+    }
+}
+
+fn main() {
+    let mut kth_largest = KthLargest::new(3, vec![4,5,8,2]);
+    assert_eq!(kth_largest.add(3), 4);
+    assert_eq!(kth_largest.add(5), 5);
+    assert_eq!(kth_largest.add(10), 5);
+    assert_eq!(kth_largest.add(9), 8);
+    assert_eq!(kth_largest.add(4), 8);
+
+    let mut kth_largest = KthLargest::new(1, vec![]);
+    assert_eq!(kth_largest.add(-3), -3);
+    assert_eq!(kth_largest.add(-2), -2);
+    assert_eq!(kth_largest.add(-4), -2);
+    assert_eq!(kth_largest.add(0), 0);
+    assert_eq!(kth_largest.add(4), 4);
+
+    let mut kth_largest = KthLargest::new(2, vec![0]);
+    assert_eq!(kth_largest.add(-1), -1);
+    assert_eq!(kth_largest.add(1), 0);
+    assert_eq!(kth_largest.add(-2), 0);
+    assert_eq!(kth_largest.add(-4), 0);
+    assert_eq!(kth_largest.add(3), 1);
+}
