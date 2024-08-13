@@ -15,7 +15,7 @@ mod solution {
 
         graph::num_connected_components(
             (0..num_rows)
-                .flat_map(|i| (0..num_cols).map(move |j| (i as u8, j as u8))
+                .flat_map(|i| (0..num_cols).map(move |j| (i, j))
                 .flat_map(|(i ,j)| [
                     (i, j, LEFT),
                     (i, j, TOP),
