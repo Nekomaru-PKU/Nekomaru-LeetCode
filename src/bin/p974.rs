@@ -50,7 +50,7 @@ mod fast_hash {
     pub type FastHashMap<K, V> = HashMap<K, V, BuildHasherDefault<FastHasher<K>>>;
 }
 
-use leetcode::perf::print_time;
+use leetcode::perf::time;
 
 fn main() {
     assert_eq!(solution::main(vec![4, 5, 0, -2, -3, 1], 5), 7);
@@ -63,7 +63,7 @@ fn main() {
         vec.resize(3000, -300);
         vec
     };
-    let res = print_time("perf", || solution::main(vec, 3));
+    let res = time("perf", || solution::main(vec, 3));
     // the result should be C(3001, 2) = 4501500
     assert_eq!(res, 4501500);
 
@@ -74,6 +74,6 @@ fn main() {
         vec.resize(3000, -1);
         vec
     };
-    let res = print_time("perf", || solution::main(vec, 3001));
+    let res = time("perf", || solution::main(vec, 3001));
     assert_eq!(res, 0);
 }

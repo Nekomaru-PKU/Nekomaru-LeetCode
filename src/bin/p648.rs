@@ -229,7 +229,7 @@ mod trie {
     }
 }
 
-use leetcode::perf::print_time;
+use leetcode::perf::time;
 
 fn main() {
     test_example_1();
@@ -274,6 +274,6 @@ fn test_perf() {
         .chain((0..500).map(|i| "a".repeat(500 + i) + "b"))
         .collect::<Vec<_>>()
         .join(" ");
-    let result = print_time("perf", move || solution::main(dict, sentence));
+    let result = time("perf", move || solution::main(dict, sentence));
     assert_eq!(result, expected);
 }

@@ -9,7 +9,7 @@ pub mod cmp {
 }
 
 pub mod perf {
-    pub fn print_time<T, F: FnOnce() -> T>(name: &str, inner_fn: F) -> T {
+    pub fn time<T, F: FnOnce() -> T>(name: &str, inner_fn: F) -> T {
         use std::time::Instant;
         let s = Instant::now();
         let o = inner_fn();
