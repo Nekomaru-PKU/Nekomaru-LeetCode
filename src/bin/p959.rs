@@ -4,7 +4,7 @@ mod solution {
     pub fn main(grid: Vec<String>) -> i32 {
         let mut graph = graph::GraphBuilder::with_capacity(
             grid.len() *
-            grid.first().unwrap().len() * 8);
+            grid[0].len() * 8);
         for (row, s) in grid.iter().enumerate() {
             for (col, c) in s.chars().enumerate() {
                 let row = row as _;

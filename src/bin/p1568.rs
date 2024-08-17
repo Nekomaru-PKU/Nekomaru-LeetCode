@@ -3,7 +3,7 @@ mod solution {
 
     pub fn main(mut grid: Vec<Vec<i32>>) -> i32 {
         let num_rows = grid.len();
-        let num_cols = grid.first().unwrap().len();
+        let num_cols = grid[0].len();
         if num_islands(&grid) != 1 {
             return 0;
         }
@@ -25,7 +25,7 @@ mod solution {
 
     fn num_islands(grid: &[Vec<i32>]) -> i32 {
         let num_rows = grid.len();
-        let num_cols = grid.first().unwrap().len();
+        let num_cols = grid[0].len();
 
         let mut unvisited = (0..num_rows)
             .flat_map(|i| (0..num_cols).map(move |j| (i, j)))

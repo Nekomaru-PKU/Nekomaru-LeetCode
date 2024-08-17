@@ -11,14 +11,14 @@ mod solution {
         #[derive(Debug, Clone, Copy, PartialEq, Eq)]
         enum History { O, OX, XX }
 
-        let rows = board.len();
-        let columns = board[0].len();
+        let num_rows = board.len();
+        let num_cols = board[0].len();
 
         let mut total = 0;
 
         for row in &mut board {
             let mut history = History::O;
-            for j in 0..columns {
+            for j in 0..num_cols {
                 match row[j] {
                     '.' => history = History::O,
                     'X' => match history {
@@ -40,9 +40,9 @@ mod solution {
             }
         }
 
-        for j in 0..columns {
+        for j in 0..num_cols {
             let mut history = History::O;
-            for i in 0..rows {
+            for i in 0..num_rows {
                 match board[i][j] {
                     '.' => history = History::O,
                     'X' => match history {
@@ -69,24 +69,24 @@ mod solution {
     }
 
     pub fn main_2pass(mut board: Vec<Vec<char>>) -> i32 {
-        let rows = board.len();
-        let columns = board[0].len();
+        let num_rows = board.len();
+        let num_cols = board[0].len();
 
         let mut count = 0;
-        for column in 0..columns {
+        for col in 0..num_cols {
             let mut prev_parts: u32 = 0;
-            for row in 0..rows {
-                match board[row][column] {
+            for row in 0..num_rows {
+                match board[row][col] {
                     'X' => {
                         match prev_parts {
                             0 => (),
                             1 => {
                                 count += 1;
-                                board[row - 1][column] = '.';
-                                board[row][column] = '.';
+                                board[row - 1][col] = '.';
+                                board[row][col] = '.';
                             },
                             2.. => {
-                                board[row][column] = '.';
+                                board[row][col] = '.';
                             },
                         }
                         prev_parts += 1;

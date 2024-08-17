@@ -3,7 +3,7 @@ mod solution {
 
     pub fn main(grid: Vec<Vec<i32>>) -> i32 {
         let rows = grid.len();
-        let cols = grid.first().unwrap().len();
+        let cols = grid[0].len();
         if rows >= 3 && cols >= 3 {
             iter::product(0..=rows - 3, 0..=cols - 3)
                 .filter(|&(i, j)| is_magic_square(&grid, i, j))
