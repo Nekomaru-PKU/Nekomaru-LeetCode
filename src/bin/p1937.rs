@@ -8,6 +8,7 @@ fn solution(points: Vec<Vec<i32>>) -> i64 {
         .collect::<Vec<_>>();
     let mut dp_next = vec![0; num_cols];
 
+    #[allow(clippy::needless_range_loop)]
     for i in 1..num_rows {
         for j in 0..num_cols {
             dp_next[j] =
