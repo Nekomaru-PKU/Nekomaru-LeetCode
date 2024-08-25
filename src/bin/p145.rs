@@ -1,4 +1,4 @@
-use leetcode::types::binary_tree::prelude::*;
+use leetcode::prelude::binary_tree::*;
 
 fn solution(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
     let Some(root) = root else { return Vec::new(); };

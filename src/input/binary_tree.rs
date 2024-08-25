@@ -1,4 +1,4 @@
-use crate::types::binary_tree::prelude::*;
+use crate::prelude::binary_tree::*;
 
 pub fn from_vec(vec: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
     if let Some(&root_val) = vec.first() {

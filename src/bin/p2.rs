@@ -1,4 +1,4 @@
-use leetcode::types::linked_list::ListNode;
+use leetcode::prelude::linked_list::ListNode;
 
 fn solution(
     l1: Option<Box<ListNode>>,

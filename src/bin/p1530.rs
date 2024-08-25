@@ -1,5 +1,5 @@
 mod solution {
-    use leetcode::types::binary_tree::prelude::*;
+    use leetcode::prelude::binary_tree::*;
 
     pub fn main(root: Option<Rc<RefCell<TreeNode>>>, distance: i32) -> i32 {
         use std::collections::HashMap;

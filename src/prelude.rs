@@ -11,13 +11,8 @@ pub mod linked_list {
 }
 
 pub mod binary_tree {
-    pub mod prelude {
-        pub use std::rc::Rc;
-        pub use std::cell::RefCell;
-        pub use super::TreeNode;
-    }
-
-    use prelude::*;
+    pub use std::rc::Rc;
+    pub use std::cell::RefCell;
 
     #[derive(Debug, PartialEq, Eq)]
     pub struct TreeNode {
