@@ -1,3 +1,5 @@
+pub mod binary_tree;
+
 pub trait Input<T> { fn input(self) -> T; }
 
 impl Input<i32>    for  i32 { fn input(self) -> i32    { self }}
@@ -8,5 +10,3 @@ impl<T, U: Input<T>, const N: usize> Input<Vec<T>> for [U; N] {
         self.into_iter().map(Input::input).collect()
     }
 }
-
-pub mod binary_tree;

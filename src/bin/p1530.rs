@@ -63,8 +63,8 @@ mod solution {
 }
 
 fn main() {
-    use leetcode::input::binary_tree;
-    assert_eq!(solution::main(binary_tree::from_vec(vec![1, 2, 3, 0, 4]), 3), 1);
+    use leetcode::input::binary_tree::{self, NULL};
+    assert_eq!(solution::main(binary_tree::from_vec(vec![1, 2, 3, NULL, 4]), 3), 1);
     assert_eq!(solution::main(binary_tree::from_vec(vec![1, 2, 3, 4, 5, 6, 7]), 3), 2);
-    assert_eq!(solution::main(binary_tree::from_vec(vec![7, 1, 4, 6, 0, 5, 3, 0, 0, 0, 0, 0, 2]), 3), 1);
+    assert_eq!(solution::main(binary_tree::from_vec(vec![7, 1, 4, 6, NULL, 5, 3, NULL, NULL, NULL, NULL, NULL, 2]), 3), 1);
 }

@@ -61,10 +61,10 @@ mod solution {
 }
 
 fn main() {
-    use leetcode::input::binary_tree;
+    use leetcode::input::binary_tree::{self, NULL};
     assert_eq!(
         solution::main(
-            binary_tree::from_vec(vec![5, 1, 2, 3, 0, 6, 4]), 3, 6),
+            binary_tree::from_vec(vec![5, 1, 2, 3, NULL, 6, 4]), 3, 6),
         String::from("UURL"));
     assert_eq!(
         solution::main(

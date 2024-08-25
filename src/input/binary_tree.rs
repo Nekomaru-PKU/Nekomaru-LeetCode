@@ -1,5 +1,7 @@
 use crate::prelude::binary_tree::*;
 
+pub const NULL: i32 = i32::MIN;
+
 pub fn from_vec(vec: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
     if let Some(&root_val) = vec.first() {
         enum Child { Left, Right }
@@ -12,7 +14,7 @@ pub fn from_vec(vec: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
         queue.push_back((root.clone(), Child::Right));
 
         for val in vec.into_iter().skip(1) {
-            if val > 0 {
+            if val != NULL {
                 let new_node = Rc::new(RefCell::new(TreeNode::new(val)));
                 queue.push_back((new_node.clone(), Child::Left));
                 queue.push_back((new_node.clone(), Child::Right));

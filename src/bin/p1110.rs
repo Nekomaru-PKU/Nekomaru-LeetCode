@@ -93,18 +93,18 @@ mod solution {
 
 fn main() {
     use leetcode::cmp;
-    use leetcode::input::binary_tree;
+    use leetcode::input::binary_tree::{self, NULL};
     assert!(cmp::eq_any_order(
         solution::main(
             binary_tree::from_vec(vec![1, 2, 3, 4, 5, 6, 7]), vec![3, 5]),
         vec![
-            binary_tree::from_vec(vec![1, 2, 0, 4]),
+            binary_tree::from_vec(vec![1, 2, NULL, 4]),
             binary_tree::from_vec(vec![6]),
             binary_tree::from_vec(vec![7]),
         ]));
     assert!(cmp::eq_any_order(
         solution::main(
-            binary_tree::from_vec(vec![1, 2, 4, 0, 3]), vec![3]),
+            binary_tree::from_vec(vec![1, 2, 4, NULL, 3]), vec![3]),
         vec![
             binary_tree::from_vec(vec![1, 2, 4]),
         ]));

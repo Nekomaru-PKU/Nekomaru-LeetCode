@@ -64,8 +64,8 @@ fn solution(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
 }
 
 fn main() {
-    use leetcode::input::binary_tree;
-    assert_eq!(solution(binary_tree::from_vec(vec![1, 0, 2, 3])), [3, 2, 1]);
+    use leetcode::input::binary_tree::{self, NULL};
+    assert_eq!(solution(binary_tree::from_vec(vec![1, NULL, 2, 3])), [3, 2, 1]);
     assert_eq!(solution(binary_tree::from_vec(vec![1])), [1]);
     assert_eq!(solution(binary_tree::from_vec(vec![])), []);
 }
