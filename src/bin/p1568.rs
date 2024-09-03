@@ -39,10 +39,10 @@ mod solution {
             while let Some((i, j)) = stack.pop() {
                 unvisited.remove(&(i, j));
                 stack.extend([
-                    (i > 0           ).then(|| (i - 1, j)),
-                    (i < num_rows - 1).then(|| (i + 1, j)),
-                    (j > 0           ).then(|| (i, j - 1)),
-                    (j < num_cols - 1).then(|| (i, j + 1)),
+                    (i > 0           ).then_some((i - 1, j)),
+                    (i < num_rows - 1).then_some((i + 1, j)),
+                    (j > 0           ).then_some((i, j - 1)),
+                    (j < num_cols - 1).then_some((i, j + 1)),
                 ]   .into_iter()
                     .flatten()
                     .filter(|&(i, j)| grid[i][j] > 0)
