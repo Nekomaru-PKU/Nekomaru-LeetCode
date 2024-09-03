@@ -1,6 +1,7 @@
-#![expect(clippy::needless_range_loop)]
 
 fn solution(s: String) -> i32 {
+    #![expect(clippy::needless_range_loop)]
+
     let s = {
         let mut s_new = Vec::with_capacity(s.len());
         for c in s.bytes() {

@@ -27,7 +27,7 @@ fn solution_3pass(mut board: Vec<Vec<char>>) -> i32 {
                         row[j] = '.';
                     },
                 },
-                _ => unreachable!(),
+                _ => panic!(),
             }
         }
     }
@@ -51,7 +51,7 @@ fn solution_3pass(mut board: Vec<Vec<char>>) -> i32 {
                         board[i][j] = '.';
                     },
                 },
-                _ => unreachable!(),
+                _ => panic!(),
             }
         }
     }

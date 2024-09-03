@@ -186,8 +186,10 @@ mod solution {
                 }
             }
 
-            dbg!(num_unknowns);
-            dbg!(&min_dist);
+            #[expect(clippy::dbg_macro)] {
+                dbg!(num_unknowns);
+                dbg!(&min_dist);
+            };
 
             let (min_dist_to_dest, mut unknowns_to_dest) =
                 min_dist[dst as usize].clone();
@@ -238,6 +240,7 @@ mod solution {
     }
 }
 
+#[expect(clippy::dbg_macro)]
 fn main() {
     use leetcode::input::Input;
     dbg!((solution::main(

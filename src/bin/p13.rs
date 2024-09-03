@@ -23,7 +23,7 @@ fn solution(s: String) -> i32 {
                 Some(b'V') => { s.pop(); num += 4; }
                 _ => num += 1,
             },
-            _ => unreachable!()
+            _ => panic!()
         }
     }
     num

@@ -4,7 +4,7 @@ mod solution {
         cmp::Ordering,
         fmt,
         fmt::Write,
-        ops::*,
+        ops::AddAssign,
     };
 
     #[derive(Debug, Clone, PartialEq, Eq, Hash)]
@@ -117,12 +117,12 @@ mod solution {
                         Term::Compound(vec),
                         None));
                 },
-                _ => unreachable!(),
+                _ => panic!(),
             }
         }
 
         let Some(&TermOrPush::Term(ref term, None)) = stack.first() else {
-            unreachable!()
+            panic!()
         };
 
         let freq = {

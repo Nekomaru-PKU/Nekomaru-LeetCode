@@ -15,7 +15,7 @@ mod fast_hash {
         }
 
         fn write(&mut self, _: &[u8]) {
-            unreachable!("invalid use.")
+            panic!("invalid use.")
         }
 
         fn finish(&self) -> u64 { self.0 }
@@ -50,12 +50,14 @@ fn main() {
     assert_eq!(solution(vec![4, 5, 0, -2, -3, 1], 5), 7);
     assert_eq!(solution(vec![5], 9), 0);
 
+    use leetcode::perf;
+
     // the worst case of nums.length = 3 * 10^4,
     // and sum of every subarray is a multiple of k.
     // the result should be C(3001, 2) = 4501500
-    assert_eq!(leetcode::perf::time("perf", || solution(vec![-300, 3000], 3)), 4_501_500);
+    assert_eq!(perf::time("perf", || solution(vec![-300, 3000], 3)), 4_501_500);
 
     // the worst case of nums.length = 3 * 10^4,
     // and sum of every subarray is different mod k.
-    assert_eq!(leetcode::perf::time("perf", || solution(vec![-1, 3000], 3001)), 0);
+    assert_eq!(perf::time("perf", || solution(vec![-1, 3000], 3001)), 0);
 }

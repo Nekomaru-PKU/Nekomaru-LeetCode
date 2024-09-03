@@ -27,19 +27,21 @@ fn main() {
     assert_eq!(solution(vec![1, 2, 3, 4, 5], 6), 3);
     assert_eq!(solution(vec![1, 2, 3, 4], 5), 2);
 
+    use leetcode::perf;
+
     let people = (1..=50000).map(|_| 50000).collect::<Vec<_>>();
-    let result = leetcode::perf::time("perf", || solution(people, 50000));
+    let result = perf::time("perf", || solution(people, 50000));
     // in this case everyone is on its own boat.
     assert_eq!(result, 50000);
 
     let people = (1..50000).collect::<Vec<_>>();
-    let result = leetcode::perf::time("perf", || solution(people, 50000));
+    let result = perf::time("perf", || solution(people, 50000));
     // in this case we pair `people[i]` with `people[50000 - i]` for each `i`
     // from 0 to 24999 and we have `people[25000]` left, so we need 25000 boats.
     assert_eq!(result, 25000);
 
     let people = (1..=50000).collect::<Vec<_>>();
-    let result = leetcode::perf::time("perf", || solution(people, 50001));
+    let result = perf::time("perf", || solution(people, 50001));
     // in this case we pair `people[i]` with `people[50001 - i]` for each `i`
     // from 0 to 25000, so we need 25000 boats.
     assert_eq!(result, 25000);

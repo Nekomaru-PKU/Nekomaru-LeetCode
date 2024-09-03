@@ -260,6 +260,7 @@ fn test_example_2() {
 
 fn test_perf() {
     use std::iter;
+    use leetcode::perf;
     let dict = (0..1000).map(|n| "a".repeat(n) + "b").collect();
     let sentence = iter::empty()
         .chain((0..500).map(|i| "a".repeat(500 + i) + "a"))
@@ -271,6 +272,6 @@ fn test_perf() {
         .chain((0..500).map(|i| "a".repeat(500 + i) + "b"))
         .collect::<Vec<_>>()
         .join(" ");
-    let result = leetcode::perf::time("perf", move || solution(dict, sentence));
+    let result = perf::time("perf", move || solution(dict, sentence));
     assert_eq!(result, expected);
 }

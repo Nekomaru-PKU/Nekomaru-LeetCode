@@ -22,9 +22,9 @@ mod solution {
                     Token::OneAny |
                     Token::ZeroOrMoreAny =>
                         tokens.push(Token::ZeroOrMoreAny),
-                    Token::End => unreachable!(),
+                    Token::End => panic!(),
                 },
-                _ => unreachable!("unexpected character"),
+                _ => panic!("unexpected character"),
             }
         }
         tokens.push(Token::End);

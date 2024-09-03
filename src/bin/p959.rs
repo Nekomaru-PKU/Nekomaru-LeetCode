@@ -28,7 +28,7 @@ mod solution {
                         graph.insert_edge_undirected(vn, ve);
                         graph.insert_edge_undirected(vs, vw);
                     },
-                    _ => unreachable!("invalid input"),
+                    _ => panic!("invalid input"),
                 }
             }
         }
@@ -52,10 +52,7 @@ mod graph {
     #![expect(dead_code)]
 
     use std::{
-        collections::{
-            HashMap,
-            HashSet,
-        },
+        collections::HashMap,
         hash::Hash,
         ops::Range,
     };
@@ -119,7 +116,11 @@ mod graph {
     }
 
     pub mod algorithm {
-        use super::*;
+        use super::Graph;
+        use std::{
+            collections::HashSet,
+            hash::Hash,
+        };
 
         pub fn num_connected_components<T: Clone + Eq + Hash>(graph: &Graph<T>) -> usize {
             let mut unvisited = graph

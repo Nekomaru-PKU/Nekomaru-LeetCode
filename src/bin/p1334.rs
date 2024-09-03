@@ -2,10 +2,9 @@ mod shortest_path {
     #![expect(dead_code)]
     #![expect(clippy::needless_range_loop)]
 
-    pub fn floyd(
-        n: usize,
-        edges: impl Iterator<Item = (usize, usize, i32)>)
-     -> Vec<Vec<i32>> {
+    pub fn floyd<E>(n: usize, edges: E) -> Vec<Vec<i32>>
+    where
+        E: Iterator<Item = (usize, usize, i32)> {
         let mut dist = vec![vec![i32::MAX; n]; n];
         for i in 0..n {
             dist[i][i] = 0;
@@ -26,10 +25,9 @@ mod shortest_path {
         dist
     }
 
-    pub fn floyd_undirected(
-        n: usize,
-        edges: impl Iterator<Item = (usize, usize, i32)>)
-     -> Vec<Vec<i32>> {
+    pub fn floyd_undirected<E>(n: usize, edges: E) -> Vec<Vec<i32>>
+    where
+        E: Iterator<Item = (usize, usize, i32)> {
         let mut dist = vec![vec![i32::MAX; n]; n];
         for i in 0..n {
             dist[i][i] = 0;

@@ -9,7 +9,7 @@ impl Hasher for I32Hasher {
     }
 
     fn write(&mut self, _: &[u8]) {
-        unreachable!("invalid use of IdentityHasher.")
+        panic!("invalid use of IdentityHasher.")
     }
 
     fn finish(&self) -> u64 { self.0 }

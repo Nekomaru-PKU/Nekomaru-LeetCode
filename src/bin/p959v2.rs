@@ -91,7 +91,6 @@ mod graph {
     use std::{
         collections::HashSet,
         hash::Hash,
-        ops::*
     };
 
     pub fn num_connected_components<T, V, S, F>(

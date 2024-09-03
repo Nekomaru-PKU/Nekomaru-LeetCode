@@ -54,7 +54,7 @@ fn solution(items: Vec<Vec<i32>>, k: i32) -> i64 {
         }
     };
 
-    dbg!(dp)[categories.len()][k]
+    dp[categories.len()][k]
 }
 
 fn main() {

@@ -5,7 +5,7 @@ mod solution {
         }
 
         let mut min = 0;
-        let mut max = bloom_day.iter().copied().max().expect("n >= 1");
+        let mut max = bloom_day.iter().copied().max().unwrap();
         while min != max {
             let mid = min + (max - min) / 2;
             if check(&bloom_day, m, k, mid) {

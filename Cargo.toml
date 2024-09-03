@@ -1,6 +1,5 @@
 [package]
 name = "leetcode"
-description = "nekomaru's leetcode solutions"
 version = "0.1.0"
 edition = "2021"
 
@@ -10,67 +9,77 @@ nursery     = { level = "warn", priority = -1 }
 pedantic    = { level = "warn", priority = -1 }
 restriction = { level = "warn", priority = -1 }
 
+# lint group `cargo`
+# always allowed for nekomaru-leetcode only
+cargo_common_metadata = "allow"
+
 # lint group `pedantic`
+# always allowed for any project
+float_cmp = "allow"
+match_on_vec_items = "allow"
+missing_panics_doc = "allow"
+must_use_candidate = "allow"
+
+# intentionally allowed
+flat_map_option = "allow"
+if_not_else = "allow"
+items_after_statements = "allow"
+module_name_repetitions = "allow" # for `winit::window::WindowBuilder`
+similar_names = "allow"           # for `min` and `mid`
+
+# intentionally allowed for nekomaru-leetcode only
+many_single_char_names = "allow"
+needless_pass_by_value = "allow"
+
+# cast-related
 cast_lossless = "allow"
 cast_possible_truncation = "allow"
 cast_possible_wrap = "allow"
 cast_precision_loss = "allow"
 cast_sign_loss = "allow"
-flat_map_option = "allow"
-float_cmp = "allow"
-if_not_else = "allow"
-items_after_statements = "allow"
-many_single_char_names = "allow"
-match_on_vec_items = "allow"
-missing_panics_doc = "allow"
-module_name_repetitions = "allow"
-must_use_candidate = "allow"
-needless_pass_by_value = "allow"
-similar_names = "allow"
-wildcard_imports = "allow"
 
 # lint group `restriction`
-absolute_paths = "allow"
-arithmetic_side_effects = "allow"
+# always allowed for any project
 blanket_clippy_restriction_lints = "allow"
-default_numeric_fallback = "allow"
-else_if_without_else = "allow"
-expect_used = "allow"
 float_arithmetic = "allow"
 implicit_return = "allow"
-indexing_slicing = "allow"
 integer_division = "allow"
 integer_division_remainder_used = "allow"
-let_underscore_untyped = "allow"
-min_ident_chars = "allow"
-missing_assert_message = "allow"
 missing_docs_in_private_items = "allow"
 missing_trait_methods = "allow"
 mod_module_files = "allow"
 modulo_arithmetic = "allow"
-print_stdout = "allow"
-pub_use = "allow"
+panic = "allow"
 question_mark_used = "allow"
 ref_patterns = "allow"
-shadow_same = "allow"
 single_call_fn = "allow"
 std_instead_of_alloc = "allow"
 std_instead_of_core = "allow"
 string_add = "allow"
-unreachable = "allow"
-unseparated_literal_suffix = "allow"
-unwrap_used = "allow"
 
+# intentionally allowed
+arithmetic_side_effects = "allow"
+default_numeric_fallback = "allow"
+else_if_without_else = "allow"        # against `clippy::needless_else`
+expect_used = "allow"
+indexing_slicing = "allow"
+min_ident_chars = "allow"
+needless_borrowed_reference = "allow" # against `clippy::pattern_type_mismatch`
+pub_use = "allow"
+shadow_same = "allow"
+unseparated_literal_suffix = "allow"  # against `clippy::separated_literal_suffix`
+
+# intentionally allowed for nekomaru-leetcode only
+let_underscore_untyped = "allow"
+missing_assert_message = "allow"
+print_stdout = "allow"
+
+# potentially fixable
 allow_attributes_without_reason = "allow"
 as_conversions = "allow"
 as_underscore = "allow"
-dbg_macro = "allow"
-exhaustive_structs = "allow"
-impl_trait_in_params = "allow"
-iter_over_hash_type = "allow"
 missing_asserts_for_indexing = "allow"
-missing_inline_in_public_items = "allow"
-needless_borrowed_reference = "allow"
 shadow_reuse = "allow"
 shadow_unrelated = "allow"
+unwrap_used = "allow"
 use_debug = "allow"

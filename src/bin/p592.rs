@@ -79,13 +79,13 @@ pub fn solution(s: String) -> String {
                 acc = math::frac_add(acc, (num, denum));
                 State::Neg
             },
-            _ => unreachable!(),
+            _ => panic!(),
         }
     }
 
     acc = math::frac_add(acc, {
         let State::NumDenum(num, denum) = state else {
-            unreachable!();
+            panic!();
         };
         (num, denum)
     });

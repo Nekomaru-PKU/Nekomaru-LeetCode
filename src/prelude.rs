@@ -1,4 +1,5 @@
 pub mod linked_list {
+    #[expect(clippy::exhaustive_structs)]
     #[derive(PartialEq, Eq, Clone, Debug)]
     pub struct ListNode {
         pub val: i32,
@@ -6,6 +7,7 @@ pub mod linked_list {
     }
 
     impl ListNode {
+        #[inline]
         pub const fn new(val: i32) -> Self {
             Self { next: None, val }
         }
@@ -18,6 +20,7 @@ pub mod binary_tree {
         rc::Rc,
     };
 
+    #[expect(clippy::exhaustive_structs)]
     #[derive(Debug, PartialEq, Eq)]
     pub struct TreeNode {
         pub val: i32,
@@ -26,6 +29,7 @@ pub mod binary_tree {
     }
 
     impl TreeNode {
+        #[inline]
         pub const fn new(val: i32) -> Self {
             Self { val, left: None, right: None }
         }

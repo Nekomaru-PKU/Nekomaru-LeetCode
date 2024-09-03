@@ -85,8 +85,9 @@ fn main() {
         let _ = crate::solution_opt((0..n as _).collect(), n * (n - 1) / 2);
     }
 
-    leetcode::perf::time("1e3", || test_perf(1_000));
-    leetcode::perf::time("3e3", || test_perf(3_000));
-    leetcode::perf::time("5e3", || test_perf(5_000));
-    leetcode::perf::time("1e4", || test_perf(10_000));
+    use leetcode::perf;
+    perf::time("1e3", || test_perf(1_000));
+    perf::time("3e3", || test_perf(3_000));
+    perf::time("5e3", || test_perf(5_000));
+    perf::time("1e4", || test_perf(10_000));
 }

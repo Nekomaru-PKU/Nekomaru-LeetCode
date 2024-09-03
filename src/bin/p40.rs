@@ -43,7 +43,8 @@ mod solution {
 }
 
 fn main() {
-    assert!(leetcode::cmp::eq_any_order(
+    use leetcode::cmp;
+    assert!(cmp::eq_any_order(
         &solution::main(vec![10, 1, 2, 7, 6, 1, 5], 8),
         &[
             vec![1, 1, 6],
@@ -51,13 +52,13 @@ fn main() {
             vec![1, 7],
             vec![2, 6],
         ]));
-    assert!(leetcode::cmp::eq_any_order(
+    assert!(cmp::eq_any_order(
         &solution::main(vec![2, 5, 2, 1, 2], 5),
         &[
             vec![1, 2, 2],
             vec![5],
         ]));
-    assert!(leetcode::cmp::eq_any_order(
+    assert!(cmp::eq_any_order(
         &solution::main(vec![1; 100], 30),
         &[vec![1; 30]]));
 }

@@ -2,6 +2,7 @@ use crate::prelude::binary_tree::*;
 
 pub const NULL: i32 = i32::MIN;
 
+#[inline]
 pub fn from_vec(vec: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
     if let Some(&root_val) = vec.first() {
         enum Child { Left, Right }

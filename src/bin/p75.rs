@@ -42,7 +42,7 @@ fn solution_one_pass(nums: &mut Vec<i32>) {
             2 => {
                 end_2 += 1;
             },
-            _ => unreachable!("invalid input"),
+            _ => panic!("invalid input"),
         }
     }
 }

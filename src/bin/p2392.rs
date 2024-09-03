@@ -1,8 +1,7 @@
 mod graph {
-    pub fn topology_sort(
-        n: usize,
-        edges: impl Iterator<Item = (usize, usize)>,
-    ) -> Option<Vec<usize>> {
+    pub fn topology_sort<E>(n: usize, edges: E) -> Option<Vec<usize>>
+    where
+        E: Iterator<Item = (usize, usize)> {
         use std::collections::HashSet;
 
         let mut edges = edges.collect::<Vec<_>>();
@@ -37,6 +36,7 @@ mod graph {
         let mut result = Vec::new();
         while let Some(removing_vertex) = vertices_no_out_edge.pop() {
             // remove all edges to `removing_vertex`:
+            #[expect(clippy::iter_over_hash_type)]
             for &i in &vertices {
                 let (ref edge_begin, ref mut edge_end) = edge_ranges[i];
                 if edge_begin < edge_end {
