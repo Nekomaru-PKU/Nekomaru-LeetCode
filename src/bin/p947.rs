@@ -5,7 +5,7 @@ mod graph {
     };
 
     mod core {
-        #![allow(dead_code)]
+        #![expect(dead_code)]
 
         use std::{
             collections::HashMap,
@@ -38,7 +38,7 @@ mod graph {
         }
 
         impl<T> GraphBuilder<T> {
-            pub fn new() -> Self {
+            pub const fn new() -> Self {
                 Self {
                     verts: Vec::new(),
                     edges: Vec::new(),
@@ -66,7 +66,7 @@ mod graph {
         impl<T: Clone + Eq + Ord + Hash> GraphBuilder<T> {
             pub fn build(self) -> Graph<T> {
                 let mut edges = self.edges;
-                edges.sort_unstable_by_key(|(from, _)| from.clone());
+                edges.sort_unstable_by_key(|&(ref from, _)| from.clone());
 
                 let mut verts = HashMap::new();
                 for i in 1..edges.len() {
@@ -86,7 +86,7 @@ mod graph {
                     verts.entry(vert).or_insert(0..0);
                 }
 
-                Graph { edges, verts }
+                Graph { verts, edges }
             }
         }
     }
@@ -108,7 +108,7 @@ mod graph {
                 stack.push(start);
                 while let Some(vert) = stack.pop() {
                     unvisited.remove(&vert);
-                    for (_, to) in graph.edges_from(vert) {
+                    for &(_, ref to) in graph.edges_from(vert) {
                         if unvisited.contains(to) {
                             stack.push(to);
                         }

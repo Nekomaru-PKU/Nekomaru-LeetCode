@@ -22,7 +22,7 @@ fn solution(s: String) -> String {
             (0..=mid.min(n - mid - 1))
                 .take_while(|&i| s[mid - i] == s[mid + i])
                 .last()
-                .map(|len| &s[(mid - len)..(mid + len + 1)])
+                .map(|len| &s[(mid - len)..=(mid + len)])
         ))
         .max_by_key(|&s| s.len())
         .unwrap()

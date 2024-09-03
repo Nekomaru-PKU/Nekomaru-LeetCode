@@ -24,7 +24,7 @@ mod solution {
                         tokens.push(Token::ZeroOrMoreAny),
                     Token::End => unreachable!(),
                 },
-                _ => panic!("unexpected character"),
+                _ => unreachable!("unexpected character"),
             }
         }
         tokens.push(Token::End);
@@ -139,9 +139,9 @@ fn main() {
         assert!(solution("aa".into(), "a*".into()));
         assert!(solution("ab".into(), ".*".into()));
 
-        assert!(solution("".into(), "".into()));
-        assert!(solution("".into(), "a*".into()));
-        assert!(solution("".into(), ".*".into()));
+        assert!(solution(String::new(), String::new()));
+        assert!(solution(String::new(), "a*".into()));
+        assert!(solution(String::new(), ".*".into()));
 
         assert!(solution("aab".into(), "c*a*b".into()));
         assert!(solution("aab".into(), "c***a*b".into()));

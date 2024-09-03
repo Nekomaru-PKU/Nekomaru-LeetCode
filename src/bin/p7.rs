@@ -15,7 +15,8 @@ fn solution(x: i32) -> i32 {
         1_000_000_000,
     ];
 
-    #[allow(clippy::suspicious_else_formatting)]
+    #[expect(clippy::bool_to_int_with_if)]
+    #[expect(clippy::suspicious_else_formatting)]
     let num_digits = 1 +
         if x >= POW_OF_10[9] {9} else
         if x >= POW_OF_10[8] {8} else

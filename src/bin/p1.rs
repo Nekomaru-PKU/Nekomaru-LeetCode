@@ -23,7 +23,7 @@ fn solution(nums: Vec<i32>, target: i32) -> Vec<i32> {
         if a == b { continue; }
 
         if let Some(&j) = map.get(&b) {
-            return vec![i, j]
+            return vec![i, j];
         }
     }
 
@@ -34,7 +34,7 @@ fn solution(nums: Vec<i32>, target: i32) -> Vec<i32> {
     let half = target / 2;
     nums.iter()
         .enumerate()
-        .filter(|(_, &num)| num == half)
+        .filter(|&(_, &num)| num == half)
         .take(2)
         .map(|(idx, _)| idx as _)
         .collect()

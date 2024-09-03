@@ -18,7 +18,7 @@ fn solution(items: Vec<Vec<i32>>, k: i32) -> i64 {
     // we sort categories[i] for each i in descending order, since it is always better
     // to pick items of higher profit first for a given category.
     for items in &mut categories {
-        items.sort_unstable_by_key(|n| -n)
+        items.sort_unstable_by_key(|n| -n);
     }
 
     // we define dp[m][n] as the *total benefit* we can get at maximum elegance by selecting `n` items

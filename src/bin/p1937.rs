@@ -1,4 +1,4 @@
-#![allow(clippy::needless_range_loop)]
+#![expect(clippy::needless_range_loop)]
 
 fn solution(points: Vec<Vec<i32>>) -> i64 {
     let num_rows = points.len();
@@ -16,13 +16,13 @@ fn solution(points: Vec<Vec<i32>>) -> i64 {
                 (0..num_cols)
                     .map(|k| dp[k] - (k as i64 - j as i64).abs())
                     .max()
-                    .unwrap()
+                    .unwrap();
         }
         (dp, dp_next) = (dp_next, dp);
     }
 
     dp  .iter()
-        .cloned()
+        .copied()
         .max()
         .unwrap()
 }

@@ -4,12 +4,12 @@ use std::hash::Hasher;
 pub struct I32Hasher(u64);
 
 impl Hasher for I32Hasher {
-    fn write_i32(&mut self, n: i32) {
-        self.0 = n as _;
+    fn write_i32(&mut self, i: i32) {
+        self.0 = i as _;
     }
 
     fn write(&mut self, _: &[u8]) {
-        panic!("invalid use of IdentityHasher.")
+        unreachable!("invalid use of IdentityHasher.")
     }
 
     fn finish(&self) -> u64 { self.0 }
@@ -24,7 +24,7 @@ fn solution(nums: Vec<i32>, k: i32) -> bool {
     // we define `map[sum]` as the minimal `m` that satisfies
     // `nums[0..m].sum() % k == sum`.
     let mut map: HashMap<i32, usize, BuildHasherDefault<I32Hasher>> =
-        Default::default();
+        HashMap::default();
     map.reserve(n);
     // trivially, `nums[0..0].sum() == 0`.
     map.insert(0, 0);
@@ -72,7 +72,5 @@ fn main() {
     vec[9998] = 10001;
     vec[9999] = 10001;
     assert!(solution(vec.clone(), 10001));
-
-    let time = Instant::now() - time;
-    println!("test success in {}ms", time.as_secs_f32() * 1000.0);
+    println!("test success in {}ms", time.elapsed().as_secs_f32() * 1000.0);
 }

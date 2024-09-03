@@ -6,7 +6,7 @@ fn solution(customers: Vec<i32>, grumpy: Vec<i32>, minutes: i32) -> i32 {
         customers.iter()
             .zip(&grumpy)
             .skip(minutes as _)
-            .filter(|(_, &grumpy)| grumpy == 0)
+            .filter(|&(_, &grumpy)| grumpy == 0)
             .map(|(&customers, _)| customers)
             .sum::<i32>();
     let mut max_satisfied = num_satisfied;

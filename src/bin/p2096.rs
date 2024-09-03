@@ -22,7 +22,7 @@ mod solution {
         };
         let ancester_count = root_to_src.iter()
             .zip(root_to_dst.iter())
-            .take_while(|(a, b)| a == b)
+            .take_while(|&(a, b)| a == b)
             .count();
 
         use std::iter;

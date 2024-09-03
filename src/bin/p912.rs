@@ -50,8 +50,8 @@ fn solution_heap_sort(mut nums: Vec<i32>) -> Vec<i32> {
 }
 
 fn solution_counting_sort(nums: Vec<i32>) -> Vec<i32> {
-    const OFFSET: usize = 50003;
-    let mut freq = vec![0; 100007];
+    const OFFSET: usize = 50_003;
+    let mut freq = vec![0; 100_007];
     for &num in &nums {
         freq[num as usize + OFFSET] += 1;
     }

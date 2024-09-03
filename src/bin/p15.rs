@@ -7,7 +7,7 @@ fn solution(nums: Vec<i32>) -> Vec<Vec<i32>> {
 
     let mut nums = freq
         .keys()
-        .cloned()
+        .copied()
         .collect::<Vec<_>>();
     nums.sort_unstable();
 
@@ -26,7 +26,7 @@ fn solution(nums: Vec<i32>) -> Vec<Vec<i32>> {
             let freq_j = freq[&nums_j];
             let nums_k = -(nums_i + nums_j);
 
-            #[allow(clippy::nonminimal_bool)]
+            #[expect(clippy::nonminimal_bool)]
             if  !(nums_i == nums_j && nums_j == nums_k && freq_j < 3) &&
                 !(nums_i == nums_j && freq_j < 2) &&
                 !(nums_i == nums_k && freq_i < 2) &&

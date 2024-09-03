@@ -16,13 +16,13 @@ mod solution {
     impl Ord for AtomName {
         fn cmp(&self, other: &Self) -> Ordering {
             match (self, other) {
-                (Self::Short(s0), Self::Short(s1)) =>
+                (&Self::Short(ref s0), &Self::Short(ref s1)) =>
                     <(u8, u8)>::cmp(s0, s1),
-                (Self::Short(s0), Self::Long(s1)) =>
+                (&Self::Short(ref s0), &Self::Long(ref s1)) =>
                     <[u8]>::cmp(&[s0.0, s0.1], s1),
-                (Self::Long(s0), Self::Short(s1)) =>
+                (&Self::Long(ref s0), &Self::Short(ref s1)) =>
                     <[u8]>::cmp(s0, &[s1.0, s1.1]),
-                (Self::Long(s0), Self::Long(s1)) =>
+                (&Self::Long(ref s0), &Self::Long(ref s1)) =>
                     <[u8]>::cmp(s0, s1),
             }
         }
@@ -35,7 +35,7 @@ mod solution {
     }
 
     impl AtomName {
-        fn with_char(c: u8) -> Self {
+        const fn with_char(c: u8) -> Self {
             Self::Short((c, 0))
         }
 
@@ -121,7 +121,7 @@ mod solution {
             }
         }
 
-        let Some(TermOrPush::Term(term, None)) = stack.first() else {
+        let Some(&TermOrPush::Term(ref term, None)) = stack.first() else {
             unreachable!()
         };
 
@@ -130,8 +130,8 @@ mod solution {
             let mut stack = Vec::new();
             stack.push((term, 1));
             while let Some((term, repeat)) = stack.pop() {
-                match term {
-                    Term::Atom(term) =>
+                match *term {
+                    Term::Atom(ref term) =>
                         freq.entry(term.clone())
                             .or_default()
                             .add_assign(repeat),

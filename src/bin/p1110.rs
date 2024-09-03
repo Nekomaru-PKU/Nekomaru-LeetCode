@@ -15,12 +15,12 @@ fn solution(
         nodes: &mut HashMap<i32, TreeNodeRc>,
         parents: &mut HashMap<TreeNodeOpaquePtr, TreeNodeRc>) {
         let TreeNode { val, ref left, ref right } = *node.borrow();
-        nodes.insert(val, node.clone());
+        nodes.insert(val, Rc::clone(node));
         [left, right]
             .into_iter()
             .flat_map(|child| child.as_ref())
             .for_each(|child| {
-                parents.insert(Rc::as_ptr(child), node.clone());
+                parents.insert(Rc::as_ptr(child), Rc::clone(node));
                 traverse_and_collect_nodes_and_parents(child, nodes, parents);
             });
     }
@@ -52,22 +52,21 @@ fn solution(
         // update tree structure
         if let Some(parent) = parents.get(&node_ptr) {
             let TreeNode {
-                val: _,
                 ref mut left,
                 ref mut right,
+                ..
             } = *parent.borrow_mut();
             [left, right]
                 .into_iter()
                 .filter(|child| child
                     .as_ref()
-                    .map(|child| child.borrow().val == val)
-                    .unwrap_or_default())
+                    .is_some_and(|child| child.borrow().val == val))
                 .for_each(|child| *child = None);
         }
 
         // update `has_parent`
         has_parent.remove(&node_ptr); {
-            let TreeNode { val: _, ref left, ref right } = *node.borrow();
+            let TreeNode { ref left, ref right, .. } = *node.borrow();
             [left, right]
                 .into_iter()
                 .flat_map(|child| child.as_ref())
@@ -81,29 +80,27 @@ fn solution(
     nodes.values()
         .filter(|&node| has_parent
             .get(&Rc::as_ptr(node))
-            .cloned()
-            .map(|has_parent| !has_parent)
-            .unwrap_or_default())
+            .copied()
+            .is_some_and(|has_parent| !has_parent))
         .cloned()
         .map(Option::Some)
         .collect()
 }
 
 fn main() {
-    use leetcode::cmp;
     use leetcode::input::binary_tree::{self, NULL};
-    assert!(cmp::eq_any_order(
-        solution(
+    assert!(leetcode::cmp::eq_any_order(
+        &solution(
             binary_tree::from_vec(vec![1, 2, 3, 4, 5, 6, 7]), vec![3, 5]),
-        vec![
+        &[
             binary_tree::from_vec(vec![1, 2, NULL, 4]),
             binary_tree::from_vec(vec![6]),
             binary_tree::from_vec(vec![7]),
         ]));
-    assert!(cmp::eq_any_order(
-        solution(
+    assert!(leetcode::cmp::eq_any_order(
+        &solution(
             binary_tree::from_vec(vec![1, 2, 4, NULL, 3]), vec![3]),
-        vec![
+        &[
             binary_tree::from_vec(vec![1, 2, 4]),
         ]));
 }

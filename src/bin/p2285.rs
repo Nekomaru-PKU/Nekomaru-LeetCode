@@ -6,7 +6,7 @@ fn solution(n: i32, roads: Vec<Vec<i32>>) -> i64 {
     }
 
     let mut cities_sorted = degrees.iter()
-        .cloned()
+        .copied()
         .enumerate()
         .map(|(i, d)| (i as i32, d))
         .collect::<Vec<_>>();

@@ -1,5 +1,5 @@
 mod shortest_path {
-    #![allow(clippy::needless_range_loop)]
+    #![expect(clippy::needless_range_loop)]
 
     pub fn floyd(
         n: usize,

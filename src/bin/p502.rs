@@ -3,7 +3,7 @@ fn solution(k: i32, w: i32, profits: Vec<i32>, capital: Vec<i32>) -> i32 {
 
     // we gather and sort all projects by starting captical in ascending order
     let mut projects = capital.into_iter().zip(profits).collect::<Vec<_>>();
-    projects.sort_unstable_by_key(|(requirement, _)| *requirement);
+    projects.sort_unstable_by_key(|&(requirement, _)| requirement);
 
     let mut project_queue = BinaryHeap::<i32>::with_capacity(projects.len());
     let mut capital = w;

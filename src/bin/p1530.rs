@@ -29,14 +29,14 @@ mod solution {
         leafs: &mut Vec<TreeNodeRc>,
         parents: &mut TreeNodeParentMap) {
         match *node.borrow() {
-            TreeNode { val: _, left: None, right: None } =>
-                leafs.push(node.clone()),
-            TreeNode { val: _, ref left, ref right } =>
+            TreeNode { left: None, right: None, .. } =>
+                leafs.push(Rc::clone(node)),
+            TreeNode { ref left, ref right, .. } =>
                 [left, right]
                     .into_iter()
                     .flat_map(|child| child.as_ref())
                     .for_each(|child| {
-                        parents.insert(Rc::as_ptr(child), node.clone());
+                        parents.insert(Rc::as_ptr(child), Rc::clone(node));
                         traverse_and_collect_leafs_and_parents(child, leafs, parents);
                     }),
         }
@@ -47,9 +47,9 @@ mod solution {
         prev: TreeNodeOpaquePtr,
         steps: i32,
         parents: &TreeNodeParentMap) -> i32 {
-        let TreeNode { val: _, ref left, ref right } = *node.borrow();
+        let TreeNode { ref left, ref right, .. } = *node.borrow();
         let node_ptr = Rc::as_ptr(node);
-        (if node_ptr != prev && left.is_none() && right.is_none() {1} else {0}) +
+        i32::from(node_ptr != prev && left.is_none() && right.is_none()) +
         (if steps >= 1 {
             [left, right]
                 .into_iter()

@@ -7,7 +7,7 @@ fn solution(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     let mut output = None;
     let mut output_tail = &mut output;
     let mut sum = 0;
-    while let Some(ref node) = curr {
+    while let &Some(ref node) = curr {
         let &ListNode { val, ref next } = &**node;
         if val == 0 {
             *output_tail = Some(Box::new(ListNode::new(sum)));

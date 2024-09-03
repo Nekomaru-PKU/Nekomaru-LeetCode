@@ -33,16 +33,16 @@ mod solution {
             .collect::<HashSet<_>>();
         let mut stack = Vec::new();
         let mut num = 0;
-        while let Some(start_cell) = unvisited.iter().next().cloned() {
+        while let Some(start_cell) = unvisited.iter().next().copied() {
             num += 1;
             stack.push(start_cell);
             while let Some((i, j)) = stack.pop() {
                 unvisited.remove(&(i, j));
                 stack.extend([
-                    if i > 0            { Some((i - 1, j)) } else { None },
-                    if i < num_rows - 1 { Some((i + 1, j)) } else { None },
-                    if j > 0            { Some((i, j - 1)) } else { None },
-                    if j < num_cols - 1 { Some((i, j + 1)) } else { None },
+                    (i > 0           ).then(|| (i - 1, j)),
+                    (i < num_rows - 1).then(|| (i + 1, j)),
+                    (j > 0           ).then(|| (i, j - 1)),
+                    (j < num_cols - 1).then(|| (i, j + 1)),
                 ]   .into_iter()
                     .flatten()
                     .filter(|&(i, j)| grid[i][j] > 0)

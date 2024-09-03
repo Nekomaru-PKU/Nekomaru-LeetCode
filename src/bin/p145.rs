@@ -23,7 +23,7 @@ fn solution(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
     }) = stack.pop() {
         if !expanded {
             stack.push(State {
-                node: node.clone(),
+                node: Rc::clone(&node),
                 expanded: true,
                 next_sibling,
             });
@@ -33,7 +33,7 @@ fn solution(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
                     ref right,
                     ..
                 } => stack.push(State {
-                    node: child.clone(),
+                    node: Rc::clone(child),
                     expanded: false,
                     next_sibling: right.clone(),
                 }),
@@ -42,7 +42,7 @@ fn solution(root: Option<Rc<RefCell<TreeNode>>>) -> Vec<i32> {
                     right: Some(ref child),
                     ..
                 } => stack.push(State {
-                    node: child.clone(),
+                    node: Rc::clone(child),
                     expanded: false,
                     next_sibling: None,
                 }),

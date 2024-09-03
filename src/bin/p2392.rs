@@ -46,7 +46,7 @@ mod graph {
                             .iter()
                             .enumerate()
                             .skip(next.unwrap())
-                            .find(|(_, &(_, to))| to == removing_vertex)
+                            .find(|&(_, &(_, to))| to == removing_vertex)
                             .map(|(i, _)| i);
                         next
                     } {
@@ -99,7 +99,7 @@ fn solution(
     }
 
     let mut mat = vec![vec![0; k]; k];
-    for (i, num) in nums_by_row.iter().cloned().enumerate() {
+    for (i, num) in nums_by_row.iter().copied().enumerate() {
         mat[i][column_of[num]] = num as i32 + 1;
     }
 

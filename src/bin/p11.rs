@@ -10,7 +10,7 @@ pub fn solution(height: Vec<i32>) -> i32 {
         match i32::cmp(&height[head], &height[tail]) {
             Ordering::Less    => head += 1,
             Ordering::Greater => tail -= 1,
-            _ => {
+            Ordering::Equal   => {
                 head += 1;
                 tail -= 1;
             }

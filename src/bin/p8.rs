@@ -1,11 +1,11 @@
 fn solution(s: String) -> i32 {
     let s = s.into_bytes();
-    let mut s = &s[..];
-    while let Some(b' ') = s.first() {
+    let mut s = &*s;
+    while s.first() == Some(&b' ') {
         s = &s[1..];
     }
 
-    let (s, pos) = match s.first() {
+    let (s, pos) = match s.first().copied() {
         Some(b'0'..=b'9') => (s, true),
         Some(b'+') => (&s[1..], true),
         Some(b'-') => (&s[1..], false),

@@ -40,5 +40,5 @@ mod solution {
 
 fn main() {
     assert_eq!(solution::main(vec![1, 2, 3, 4, 7], 3), 3);
-    assert_eq!(solution::main(vec![5, 4, 3, 2, 1, 1000000000], 2), 999999999);
+    assert_eq!(solution::main(vec![5, 4, 3, 2, 1, 1_000_000_000], 2), 999_999_999);
 }

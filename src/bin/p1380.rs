@@ -1,7 +1,7 @@
 fn solution(matrix: Vec<Vec<i32>>) -> Vec<i32> {
     let row_min = matrix.iter()
         .map(|row| row.iter()
-            .cloned()
+            .copied()
             .min()
             .unwrap())
         .collect::<Vec<_>>();

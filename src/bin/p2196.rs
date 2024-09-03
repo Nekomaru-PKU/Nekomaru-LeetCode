@@ -9,7 +9,7 @@ fn solution(descriptions: Vec<Vec<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
         let &mut(ref node, ref mut has_parent) = nodes
             .entry(val)
             .or_insert_with(|| (Rc::new(RefCell::new(TreeNode::new(val))), false));
-        (node.clone(), has_parent)
+        (Rc::clone(node), has_parent)
     }
 
     let mut nodes = HashMap::<i32, (Rc<RefCell<TreeNode>>, bool)>::new();
@@ -21,18 +21,20 @@ fn solution(descriptions: Vec<Vec<i32>>) -> Option<Rc<RefCell<TreeNode>>> {
         let (parent, _) = get_or_insert_node(&mut nodes, parent_val);
         let (node, has_parent) = get_or_insert_node(&mut nodes, my_val);
         if is_left_child {
-            parent.borrow_mut().left = Some(node.clone());
+            parent.borrow_mut().left = Some(Rc::clone(&node));
         } else {
-            parent.borrow_mut().right = Some(node.clone());
+            parent.borrow_mut().right = Some(Rc::clone(&node));
         }
         *has_parent = true;
     }
 
-    assert!(nodes.values()
-        .filter(|(_, has_parent)| !has_parent)
+    assert!(nodes
+        .values()
+        .filter(|&&(_, has_parent)| !has_parent)
         .count() <= 1);
-    nodes.into_values()
-        .filter(|(_, has_parent)| !has_parent)
+    nodes
+        .into_values()
+        .filter(|&(_, has_parent)| !has_parent)
         .map(|(node, _)| node)
         .next()
 }

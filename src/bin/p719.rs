@@ -12,7 +12,7 @@ fn solution(mut nums: Vec<i32>, k: i32) -> i32 {
         for &begin in &begins {
             if begin + len < nums.len() {
                 let diff = nums[begin + len] - nums[begin];
-                if  diff < heap.peek().cloned().unwrap() {
+                if  diff < heap.peek().copied().unwrap() {
                     heap.pop();
                     heap.push(diff);
                     begins_next.push(begin);
@@ -24,7 +24,7 @@ fn solution(mut nums: Vec<i32>, k: i32) -> i32 {
         len += 1;
     }
 
-    heap.peek().cloned().unwrap()
+    heap.peek().copied().unwrap()
 }
 
 fn solution_opt(mut nums: Vec<i32>, k: i32) -> i32 {

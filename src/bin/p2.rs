@@ -14,8 +14,8 @@ fn solution(
     let mut carry = 0;
     while p1.is_some() || p2.is_some() || carry > 0 {
         let sum =
-            p1.as_ref().map(|node| node.val).unwrap_or(0) +
-            p2.as_ref().map(|node| node.val).unwrap_or(0) +
+            p1.as_ref().map_or(0, |node| node.val) +
+            p2.as_ref().map_or(0, |node| node.val) +
             carry;
 
         if p1.is_none() {

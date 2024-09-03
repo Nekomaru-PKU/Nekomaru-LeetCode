@@ -10,12 +10,12 @@ mod fast_hash {
     pub struct FastHasher<T>(u64, PhantomData<T>);
 
     impl Hasher for FastHasher<i32> {
-        fn write_i32(&mut self, n: i32) {
-            self.0 = n as _;
+        fn write_i32(&mut self, i: i32) {
+            self.0 = i as _;
         }
 
         fn write(&mut self, _: &[u8]) {
-            panic!("invalid use.")
+            unreachable!("invalid use.")
         }
 
         fn finish(&self) -> u64 { self.0 }
@@ -53,7 +53,7 @@ fn main() {
     // the worst case of nums.length = 3 * 10^4,
     // and sum of every subarray is a multiple of k.
     // the result should be C(3001, 2) = 4501500
-    assert_eq!(leetcode::perf::time("perf", || solution(vec![-300, 3000], 3)), 4501500);
+    assert_eq!(leetcode::perf::time("perf", || solution(vec![-300, 3000], 3)), 4_501_500);
 
     // the worst case of nums.length = 3 * 10^4,
     // and sum of every subarray is different mod k.

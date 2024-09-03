@@ -39,6 +39,7 @@ mod solution {
         j: u8,
         side: bool)
      -> impl Iterator<Item = (u8, u8, bool)> {
+        #[expect(clippy::match_bool)]
         match side {
             LEFT => [
                 if j > 0 {

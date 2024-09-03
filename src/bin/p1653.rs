@@ -7,7 +7,7 @@ fn solution(s: String) -> i32 {
     // we precompute `m[i]` as the number of 'a's in `s[..i]`.
     let mut m = vec![0; n + 1];
     for i in 1..=n {
-        m[i] = m[i - 1] + if s[i - 1] == b'a' {1} else {0};
+        m[i] = m[i - 1] + i32::from(s[i - 1] == b'a');
     }
 
     (0..=n)
@@ -53,7 +53,7 @@ fn solution_optimized(s: String) -> i32 {
 }
 
 fn main() {
-    let _ = solution("".into());
+    let _ = solution(String::new());
     assert_eq!(solution_optimized("aababbab" .into()), 2);
     assert_eq!(solution_optimized("bbaaaaabb".into()), 2);
 }

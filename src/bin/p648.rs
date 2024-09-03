@@ -25,7 +25,7 @@ mod trie {
     const NOT_EXIST: NodeIndex = NodeIndex::MAX;
 
     impl Node {
-        fn new(char: Char) -> Self {
+        const fn new(char: Char) -> Self {
             Self {
                 char,
                 in_dict: false,
@@ -54,8 +54,10 @@ mod trie {
         }
 
         pub fn from_dict<S: AsRef<str>>(dict: &[S]) -> Self {
-            let mut trie = Self::with_capacity(dict.iter().map(|s| s.as_ref().len()).sum());
-            for word in dict.iter() {
+            let mut trie = Self::with_capacity(
+                dict.iter()
+                    .map(|s| s.as_ref().len()).sum());
+            for word in dict {
                 trie.insert_dict(word.as_ref().as_bytes());
             }
             trie
@@ -218,6 +220,7 @@ fn solution(dict: Vec<String>, sentence: String) -> String {
             if len == 0 {
                 word
             } else {
+                #[expect(clippy::string_slice)]
                 &word[..len]
             }
         })
@@ -256,13 +259,14 @@ fn test_example_2() {
 }
 
 fn test_perf() {
+    use std::iter;
     let dict = (0..1000).map(|n| "a".repeat(n) + "b").collect();
-    let sentence = [].into_iter()
+    let sentence = iter::empty()
         .chain((0..500).map(|i| "a".repeat(500 + i) + "a"))
         .chain((0..500).map(|i| "a".repeat(500 + i) + "b"))
         .collect::<Vec<_>>()
         .join(" ");
-    let expected = [].into_iter()
+    let expected = iter::empty()
         .chain((0..500).map(|i| "a".repeat(500 + i) + "a"))
         .chain((0..500).map(|i| "a".repeat(500 + i) + "b"))
         .collect::<Vec<_>>()

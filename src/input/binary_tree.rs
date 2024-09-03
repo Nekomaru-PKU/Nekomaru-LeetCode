@@ -10,14 +10,14 @@ pub fn from_vec(vec: Vec<i32>) -> Option<Rc<RefCell<TreeNode>>> {
         let mut queue = VecDeque::new();
 
         let root = Rc::new(RefCell::new(TreeNode::new(root_val)));
-        queue.push_back((root.clone(), Child::Left));
-        queue.push_back((root.clone(), Child::Right));
+        queue.push_back((Rc::clone(&root), Child::Left));
+        queue.push_back((Rc::clone(&root), Child::Right));
 
         for val in vec.into_iter().skip(1) {
             if val != NULL {
                 let new_node = Rc::new(RefCell::new(TreeNode::new(val)));
-                queue.push_back((new_node.clone(), Child::Left));
-                queue.push_back((new_node.clone(), Child::Right));
+                queue.push_back((Rc::clone(&new_node), Child::Left));
+                queue.push_back((Rc::clone(&new_node), Child::Right));
 
                 let (node, child) = queue.pop_front().unwrap();
                 let node = &mut *node.borrow_mut();

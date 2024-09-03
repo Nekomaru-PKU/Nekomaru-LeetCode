@@ -18,7 +18,7 @@ mod solution {
     }
 
     impl DigitArray {
-        fn from_u64(mut num: u64) -> Self {
+        const fn from_u64(mut num: u64) -> Self {
             let mut arr = [0; 24];
             let mut len = 0;
             while num != 0 {
@@ -99,7 +99,7 @@ mod solution {
             &num.abs_diff(*out)) {
             Ordering::Less  => *out = pal,
             Ordering::Equal => *out = (*out).min(pal),
-            _ => (),
+            Ordering::Greater => (),
         }
     }
 
@@ -132,7 +132,7 @@ mod solution {
         }
 
         fn iter(&self) -> impl Iterator<Item = u64> + '_ {
-            self.data.iter().cloned()
+            self.data.iter().copied()
         }
 
         fn ensure(&mut self, num: u64) {

@@ -1,4 +1,4 @@
-#![allow(clippy::ptr_arg)]
+#![expect(clippy::ptr_arg)]
 
 fn solution_two_pass(nums: &mut Vec<i32>) {
     let mut count = [0; 3];
@@ -42,7 +42,7 @@ fn solution_one_pass(nums: &mut Vec<i32>) {
             2 => {
                 end_2 += 1;
             },
-            _ => panic!("invalid input"),
+            _ => unreachable!("invalid input"),
         }
     }
 }

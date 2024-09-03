@@ -1,5 +1,5 @@
 fn solution(mapping: Vec<i32>, nums: Vec<i32>) -> Vec<i32> {
-    fn map_digits(mapping: &[i32], num: i32) -> i32 {
+    const fn map_digits(mapping: &[i32], num: i32) -> i32 {
         if num != 0 {
             let mut num = num;
             let mut out = 0;

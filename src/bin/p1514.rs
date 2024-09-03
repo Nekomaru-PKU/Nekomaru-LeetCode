@@ -1,5 +1,5 @@
 mod graph {
-    #![allow(dead_code)]
+    #![expect(dead_code)]
 
     use std::ops::Range;
 
@@ -15,33 +15,27 @@ mod graph {
     }
 
     impl GraphBuilder {
-        pub fn new(num_vert: u32) -> Self {
+        pub const fn new(num_vert: u32) -> Self {
             Self { num_vert, edges: Vec::new() }
         }
 
         pub fn with_capacity(num_vert: u32, capacity: usize) -> Self {
             Self { num_vert, edges: Vec::with_capacity(capacity) }
         }
-    }
 
-    impl GraphBuilder {
         pub fn insert_edge(&mut self, from: u32, to: u32, weight: f64) {
             debug_assert!(from < self.num_vert);
             debug_assert!(to   < self.num_vert);
             self.edges.push((from, to, weight));
         }
-    }
 
-    impl GraphBuilder {
         pub fn insert_edge_undirected(&mut self, from: u32, to: u32, weight: f64) {
             debug_assert!(from < self.num_vert);
             debug_assert!(to   < self.num_vert);
             self.edges.push((from, to, weight));
             self.edges.push((to, from, weight));
         }
-    }
 
-    impl GraphBuilder {
         pub fn build(self) -> Graph {
             let Self { num_vert, mut edges } = self;
             edges.sort_unstable_by_key(|&(from, _, _)| from);
@@ -110,7 +104,7 @@ mod graph {
                         heap.push(DistToVert {
                             vert: next,
                             dist: dist + weight,
-                        })
+                        });
                     }
                 }
             }

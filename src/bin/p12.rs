@@ -17,18 +17,18 @@ fn solution(mut num: i32) -> String {
             out.push(symbol_10x);
             *num -= 9 * base;
         }
-    
+
         if *num >= 5 * base {
             out.push(symbol_5x);
             *num -= 5 * base;
         }
-    
+
         if *num >= 4 * base {
             out.push(symbol_1x);
             out.push(symbol_5x);
             *num -= 4 * base;
         }
-    
+
         if *num >= base {
             for _ in 0..*num / base {
                 out.push(symbol_1x);

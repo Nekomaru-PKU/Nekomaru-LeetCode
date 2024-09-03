@@ -3,7 +3,7 @@ fn solution(vec: Vec<i32>) -> i32 {
     vec_sorted.sort_unstable();
     vec .iter()
         .zip(&vec_sorted)
-        .map(|(&i, &j)| if i != j {1} else {0})
+        .map(|(&i, &j)| i32::from(i != j))
         .sum()
 }
 

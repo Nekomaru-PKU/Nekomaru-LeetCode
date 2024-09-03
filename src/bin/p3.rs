@@ -3,9 +3,9 @@ mod bitvec {
     pub struct BitVec256([u64; 4]);
 
     impl BitVec256 {
-        pub fn new() -> Self { Self([0; 4]) }
+        pub const fn new() -> Self { Self([0; 4]) }
 
-        pub fn get(&self, i: u8) -> bool {
+        pub const fn get(&self, i: u8) -> bool {
             self.0[(i >> 6) as usize] & (1 << (i & 0x3F)) > 0
         }
 
@@ -42,5 +42,5 @@ fn main() {
     assert_eq!(solution("abcabcbb".into()), 3);
     assert_eq!(solution("bbbbb".into()), 1);
     assert_eq!(solution("pwwkew".into()), 3);
-    assert_eq!(solution("".into()), 0);
+    assert_eq!(solution(String::new()), 0);
 }

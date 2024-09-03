@@ -1,10 +1,10 @@
-#![allow(clippy::needless_range_loop)]
+#![expect(clippy::needless_range_loop)]
 
 fn solution(s: String) -> i32 {
     let s = {
         let mut s_new = Vec::with_capacity(s.len());
         for c in s.bytes() {
-            if s_new.last().cloned() != Some(c) {
+            if s_new.last().copied() != Some(c) {
                 s_new.push(c);
             }
         }

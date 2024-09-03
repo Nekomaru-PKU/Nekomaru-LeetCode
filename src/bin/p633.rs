@@ -12,7 +12,7 @@ fn solution(c: i32) -> bool {
     // yielding `a <= 32767` and `b <= 46340`.
     // so we just need to loop over `a` in `0..=32767` and check whether
     // `c - a^2` is a square number.
-    const MAX_A: i32 = 32767;
+    const MAX_A: i32 = 0x7FFF;
     for a in (0..=MAX_A).rev() {
         if is_square(c - a * a) {
             return true;

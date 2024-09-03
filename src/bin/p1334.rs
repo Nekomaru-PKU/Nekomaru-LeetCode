@@ -1,6 +1,6 @@
 mod shortest_path {
-    #![allow(dead_code)]
-    #![allow(clippy::needless_range_loop)]
+    #![expect(dead_code)]
+    #![expect(clippy::needless_range_loop)]
 
     pub fn floyd(
         n: usize,

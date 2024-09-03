@@ -17,10 +17,10 @@ fn solution(grid1: Vec<Vec<i32>>, grid2: Vec<Vec<i32>>) -> i32 {
         while let Some((i, j)) = stack.pop() {
             is_island_in_grid1 &= grid1[i][j] > 0;
             for (i, j) in [
-                if i > 0     {Some((i - 1, j))} else {None},
-                if i < n - 1 {Some((i + 1, j))} else {None},
-                if j > 0     {Some((i, j - 1))} else {None},
-                if j < m - 1 {Some((i, j + 1))} else {None},
+                (i > 0    ).then(|| (i - 1, j)),
+                (i < n - 1).then(|| (i + 1, j)),
+                (j > 0    ).then(|| (i, j - 1)),
+                (j < m - 1).then(|| (i, j + 1)),
             ].into_iter().flatten() {
                 if unvisited.contains(&(i, j)) {
                     unvisited.remove(&(i, j));

@@ -94,7 +94,7 @@ fn main() {
     assert_eq!(solution(12345), concat!(
         "Twelve Thousand ",
         "Three Hundred Forty Five"));
-    assert_eq!(solution(1234567), concat!(
+    assert_eq!(solution(1_234_567), concat!(
         "One Million ",
         "Two Hundred Thirty Four Thousand ",
         "Five Hundred Sixty Seven"));

@@ -49,7 +49,7 @@ mod solution {
 }
 
 mod graph {
-    #![allow(dead_code)]
+    #![expect(dead_code)]
 
     use std::{
         collections::{
@@ -57,7 +57,7 @@ mod graph {
             HashSet,
         },
         hash::Hash,
-        ops::*
+        ops::Range,
     };
 
     pub struct Graph<T> {
@@ -70,7 +70,7 @@ mod graph {
     }
 
     impl<T> GraphBuilder<T> {
-        pub fn new() -> Self {
+        pub const fn new() -> Self {
             Self { edges: Vec::new() }
         }
 
@@ -95,7 +95,7 @@ mod graph {
     impl<T: Clone + Eq + Ord + Hash> GraphBuilder<T> {
         pub fn build(self) -> Graph<T> {
             let mut edges = self.edges;
-            edges.sort_unstable_by_key(|(from, _)| from.clone());
+            edges.sort_unstable_by_key(|&(ref from, _)| from.clone());
 
             let mut edge_ranges = HashMap::new();
             for i in 1..edges.len() {
@@ -135,7 +135,7 @@ mod graph {
                 stack.push(start_node);
                 while let Some(node) = stack.pop() {
                     unvisited.remove(&node);
-                    for (_, to) in &graph.edges[graph.edge_ranges[&node].clone()] {
+                    for &(_, ref to) in &graph.edges[graph.edge_ranges[&node].clone()] {
                         if unvisited.contains(to) {
                             stack.push(to.clone());
                         }
