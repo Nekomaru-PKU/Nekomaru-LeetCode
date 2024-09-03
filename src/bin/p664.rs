@@ -1,3 +1,5 @@
+#![allow(clippy::needless_range_loop)]
+
 fn solution(s: String) -> i32 {
     let s = {
         let mut s_new = Vec::with_capacity(s.len());
@@ -25,7 +27,6 @@ fn solution(s: String) -> i32 {
     let mut dp = (0..=n)
         .map(|len| vec![[i32::MAX; 27]; n - len + 1])
         .collect::<Vec<_>>();
-    #[allow(clippy::needless_range_loop)]
     for begin in 0..n {
         dp[0][begin].fill(0);
         dp[1][begin].fill(1);

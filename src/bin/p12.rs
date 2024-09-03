@@ -1,10 +1,8 @@
 fn solution(mut num: i32) -> String {
     let mut out = Vec::with_capacity(31);
-    if num >= 1000 {
-        for _ in 0..num / 1000 {
-            out.push(b'M');
-        }
-        num %= 1000;
+    while num >= 1000 {
+        out.push(b'M');
+        num -= 1000;
     }
 
     fn convert_one_digit(

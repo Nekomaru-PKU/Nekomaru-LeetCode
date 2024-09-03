@@ -1,3 +1,5 @@
+#![allow(clippy::needless_range_loop)]
+
 fn solution(points: Vec<Vec<i32>>) -> i64 {
     let num_rows = points.len();
     let num_cols = points[0].len();
@@ -7,8 +9,6 @@ fn solution(points: Vec<Vec<i32>>) -> i64 {
         .map(|&point| point as i64)
         .collect::<Vec<_>>();
     let mut dp_next = vec![0; num_cols];
-
-    #[allow(clippy::needless_range_loop)]
     for i in 1..num_rows {
         for j in 0..num_cols {
             dp_next[j] =

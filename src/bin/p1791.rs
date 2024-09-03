@@ -13,6 +13,7 @@ mod solution {
 }
 
 fn main() {
-    assert_eq!(solution::main(vec![vec![1, 2], vec![2, 3], vec![4, 2]]), 2);
-    assert_eq!(solution::main(vec![vec![1, 2], vec![5, 1], vec![1, 3], vec![1, 4]]), 1);
+    use leetcode::input::Input;
+    assert_eq!(solution::main([[1, 2], [2, 3], [4, 2]].input()), 2);
+    assert_eq!(solution::main([[1, 2], [5, 1], [1, 3], [1, 4]].input()), 1);
 }

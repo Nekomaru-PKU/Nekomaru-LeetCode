@@ -1,8 +1,7 @@
 fn solution_core(
     mut arr0: &[i32],
     mut arr1: &[i32],
-    mut k: usize)
- -> i32 {
+    mut k: usize) -> i32 {
     loop {
         debug_assert!(!(arr0.is_empty() && arr1.is_empty()));
         debug_assert!(k < arr0.len() + arr1.len());

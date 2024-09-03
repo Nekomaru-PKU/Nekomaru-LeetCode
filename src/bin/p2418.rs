@@ -12,10 +12,10 @@ fn main() {
     use leetcode::input::Input;
     assert_eq!(solution(
         ["Mary","John","Emma"].input(),
-        [180, 165, 170].input()),
+        vec![180, 165, 170]),
         ["Mary","Emma","John"].input());
     assert_eq!(solution(
         ["Alice","Bob","Bob"].input(),
-        [155, 185, 150].input()),
+        vec![155, 185, 150]),
         ["Bob","Alice","Bob"].input());
 }

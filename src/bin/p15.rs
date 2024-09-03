@@ -25,6 +25,8 @@ fn solution(nums: Vec<i32>) -> Vec<Vec<i32>> {
             .take_while(|&num_j| nums_i + 2 * num_j <= 0) {
             let freq_j = freq[&nums_j];
             let nums_k = -(nums_i + nums_j);
+
+            #[allow(clippy::nonminimal_bool)]
             if  !(nums_i == nums_j && nums_j == nums_k && freq_j < 3) &&
                 !(nums_i == nums_j && freq_j < 2) &&
                 !(nums_i == nums_k && freq_i < 2) &&

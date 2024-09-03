@@ -1,7 +1,7 @@
 mod shortest_path {
-    #[inline]
-    #[allow(dead_code)]
-    #[allow(clippy::needless_range_loop)]
+    #![allow(dead_code)]
+    #![allow(clippy::needless_range_loop)]
+
     pub fn floyd(
         n: usize,
         edges: impl Iterator<Item = (usize, usize, i32)>)
@@ -26,8 +26,6 @@ mod shortest_path {
         dist
     }
 
-    #[inline]
-    #[allow(clippy::needless_range_loop)]
     pub fn floyd_undirected(
         n: usize,
         edges: impl Iterator<Item = (usize, usize, i32)>)

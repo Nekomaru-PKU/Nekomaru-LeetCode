@@ -6,18 +6,8 @@ fn solution(arr0: Vec<i32>, arr1: Vec<i32>) -> bool {
     freq0 == freq1
 }
 
-#[allow(clippy::bool_assert_comparison)]
 fn main() {
-    assert_eq!(solution(
-        vec![1, 2, 3, 4],
-        vec![2, 4, 1, 3]),
-        true);
-    assert_eq!(solution(
-        vec![7],
-        vec![7]),
-        true);
-    assert_eq!(solution(
-        vec![3, 7, 9],
-        vec![3, 7, 11]),
-        false);
+    assert!(solution(vec![1, 2, 3, 4], vec![2, 4, 1, 3]));
+    assert!(solution(vec![7], vec![7]));
+    assert!(!solution(vec![3, 7, 9], vec![3, 7, 11]));
 }

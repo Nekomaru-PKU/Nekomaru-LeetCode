@@ -1,10 +1,10 @@
 mod graph {
-    use std::collections::HashSet;
-
     pub fn topology_sort(
         n: usize,
         edges: impl Iterator<Item = (usize, usize)>,
     ) -> Option<Vec<usize>> {
+        use std::collections::HashSet;
+
         let mut edges = edges.collect::<Vec<_>>();
         edges.sort_unstable_by_key(|&(from, _)| from);
 

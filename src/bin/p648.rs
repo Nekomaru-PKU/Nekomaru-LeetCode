@@ -1,22 +1,3 @@
-mod solution {
-    use super::*;
-
-    pub fn main(dict: Vec<String>, sentence: String) -> String {
-        let trie = trie::Trie::from_dict(&dict);
-        sentence.split(' ')
-            .map(|word| {
-                let len = trie.find_prefix_in_dict(word.as_bytes());
-                if len == 0 {
-                    word
-                } else {
-                    &word[..len]
-                }
-            })
-            .collect::<Vec<_>>()
-            .join(" ")
-    }
-}
-
 mod trie {
     // Though public methods on [`Trie`] take [`str`] and [`usize`] for arguments,
     // [`Trie`] internally uses `u32` for node indices and `u8` for ingle
@@ -229,7 +210,20 @@ mod trie {
     }
 }
 
-use leetcode::perf::time;
+fn solution(dict: Vec<String>, sentence: String) -> String {
+    let trie = trie::Trie::from_dict(&dict);
+    sentence.split(' ')
+        .map(|word| {
+            let len = trie.find_prefix_in_dict(word.as_bytes());
+            if len == 0 {
+                word
+            } else {
+                &word[..len]
+            }
+        })
+        .collect::<Vec<_>>()
+        .join(" ")
+}
 
 fn main() {
     test_example_1();
@@ -246,8 +240,7 @@ fn test_example_1() {
     let trie = trie::Trie::from_dict(&dict);
     assert_eq!(trie.find_prefix_in_dict(b"cat"), 3);
     assert_eq!(trie.find_prefix_in_dict(b"cattle"), 3);
-
-    assert_eq!(solution::main(dict, S_IN.into()), S_EXPECTED);
+    assert_eq!(solution(dict, S_IN.into()), S_EXPECTED);
 }
 
 fn test_example_2() {
@@ -259,7 +252,7 @@ fn test_example_2() {
     let trie = trie::Trie::from_dict(&dict);
     assert_eq!(trie.find_prefix_in_dict(b"aadsfasf"), 1);
     assert_eq!(trie.find_prefix_in_dict(b"d"), 0);
-    assert_eq!(solution::main(dict, S_IN.into()), S_EXPECTED);
+    assert_eq!(solution(dict, S_IN.into()), S_EXPECTED);
 }
 
 fn test_perf() {
@@ -274,6 +267,6 @@ fn test_perf() {
         .chain((0..500).map(|i| "a".repeat(500 + i) + "b"))
         .collect::<Vec<_>>()
         .join(" ");
-    let result = time("perf", move || solution::main(dict, sentence));
+    let result = leetcode::perf::time("perf", move || solution(dict, sentence));
     assert_eq!(result, expected);
 }

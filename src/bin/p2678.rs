@@ -6,4 +6,6 @@ fn solution(details: Vec<String>) -> i32 {
         .count() as _
 }
 
-fn main() { let _ = solution(vec![]); }
+fn main() {
+    let _ = solution(vec![]);
+}

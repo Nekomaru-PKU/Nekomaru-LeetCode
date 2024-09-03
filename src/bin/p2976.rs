@@ -1,5 +1,6 @@
 mod shortest_path {
-    #[allow(clippy::needless_range_loop)]
+    #![allow(clippy::needless_range_loop)]
+
     pub fn floyd(
         n: usize,
         edges: impl Iterator<Item = (usize, usize, i32)>)
