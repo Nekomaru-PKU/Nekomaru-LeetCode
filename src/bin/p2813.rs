@@ -47,7 +47,7 @@ fn solution(items: Vec<Vec<i32>>, k: i32) -> i64 {
             for d in 1..=n.min(items.len()) {
                 max = max.max(
                     dp[m - 1][n - d] +
-                    items[0..d].iter().map(|n| *n as i64).sum::<i64>() +
+                    items[..d].iter().map(|n| *n as i64).sum::<i64>() +
                     2 * (m as i64) - 1);
             }
             dp[m][n] = max;

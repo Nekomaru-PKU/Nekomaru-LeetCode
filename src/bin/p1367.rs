@@ -58,13 +58,12 @@ mod solution {
         head.val == root.val &&
         head.next
             .as_ref()
-            .map(|next| [
+            .map_or(true, |next| [
                 root.left .as_ref(),
                 root.right.as_ref(),
             ]   .into_iter()
                 .flatten()
                 .any(|child| is_match(next, child)))
-            .unwrap_or(true)
     }
 }
 

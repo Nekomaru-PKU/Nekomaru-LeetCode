@@ -90,10 +90,7 @@ fn solution(
 fn main() {
     use leetcode::{
         cmp,
-        input::{
-            binary_tree,
-            binary_tree::NULL,
-        },
+        input::binary_tree::{self, NULL},
     };
     assert!(cmp::eq_any_order(
         &solution(

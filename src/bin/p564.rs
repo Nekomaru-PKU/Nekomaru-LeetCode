@@ -31,7 +31,7 @@ mod solution {
 
         fn to_u64(&self) -> u64 {
             let mut num = 0;
-            for &digit in &self.arr[0..self.len] {
+            for &digit in &self.arr[..self.len] {
                 num *= 10;
                 num += digit as u64;
             }
