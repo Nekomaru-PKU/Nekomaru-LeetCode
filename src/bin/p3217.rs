@@ -24,5 +24,17 @@ fn solution(
 }
 
 fn main() {
-    assert_eq!(solution(vec![], None), None);
+    use leetcode::include::linked_list;
+    assert_eq!(solution(
+        vec![1, 2, 3],
+        linked_list::from_iter([1, 2, 3, 4, 5])),
+        linked_list::from_iter([4, 5]));
+    assert_eq!(solution(
+        vec![1],
+        linked_list::from_iter([1, 2, 1, 2, 1, 2])),
+        linked_list::from_iter([2, 2, 2]));
+    assert_eq!(solution(
+        vec![5],
+        linked_list::from_iter([1, 2, 3, 4])),
+        linked_list::from_iter([1, 2, 3, 4]));
 }

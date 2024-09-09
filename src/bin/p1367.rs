@@ -68,5 +68,21 @@ mod solution {
 }
 
 fn main() {
-    let _ = solution::main(None, None);
+    use leetcode::{
+        input::binary_tree::{self, NULL},
+        include::linked_list,
+    };
+    let tree = binary_tree::from_vec(vec![
+        1, 4, 4, NULL, 2, 2, NULL, 1, NULL,
+        6, 8, NULL, NULL, NULL, NULL, 1, 3,
+    ]);
+    assert!( solution::main(
+        linked_list::from_iter([4, 2, 8]),
+        tree.clone()));
+    assert!( solution::main(
+        linked_list::from_iter([1, 4, 2, 6]),
+        tree.clone()));
+    assert!(!solution::main(
+        linked_list::from_iter([1, 4, 2, 6, 8]),
+        tree.clone()));
 }
