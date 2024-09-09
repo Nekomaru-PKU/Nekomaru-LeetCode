@@ -1,4 +1,3 @@
-
 use crate::prelude::linked_list::ListNode;
 
 #[derive(Clone)]
@@ -8,6 +7,8 @@ pub struct Iter<'a> {
 
 impl Iterator for Iter<'_> {
     type Item = i32;
+
+    #[inline]
     fn next(&mut self) -> Option<i32> {
         self.node
             .as_ref()
@@ -19,10 +20,12 @@ impl Iterator for Iter<'_> {
     }
 }
 
-pub fn iter(head: &Option<Box<ListNode>>) -> Iter<'_> {
+#[inline]
+pub const fn iter(head: &Option<Box<ListNode>>) -> Iter<'_> {
     Iter { node: head }
 }
 
+#[inline]
 pub fn from_iter<T>(iter: T) -> Option<Box<ListNode>>
 where
     T: IntoIterator<Item = i32>, {

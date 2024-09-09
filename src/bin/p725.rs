@@ -32,7 +32,7 @@ fn solution(head: Option<Box<ListNode>>, k: i32) -> Vec<Option<Box<ListNode>>> {
 
 fn main() {
     fn to_output(data: &[&[i32]]) -> Vec<Option<Box<ListNode>>> {
-        data.into_iter()
+        data.iter()
             .map(|arr| arr.iter().copied())
             .map(linked_list::from_iter)
             .collect::<Vec<_>>()
