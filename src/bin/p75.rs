@@ -27,19 +27,19 @@ fn solution_one_pass(nums: &mut Vec<i32>) {
     let mut end_1 = 0;
     let mut end_2 = 0;
     while end_2 < nums.len() {
-        match nums[end_2] {
-            0 => {
+        match nums.get(end_2).copied() {
+            Some(0) => {
                 nums.swap(end_2, end_0);
                 end_0 += 1;
                 end_1 = end_1.max(end_0);
                 end_2 = end_2.max(end_1);
             },
-            1 => {
+            Some(1) => {
                 nums.swap(end_2, end_1);
                 end_1 += 1;
                 end_2 = end_2.max(end_1);
             },
-            2 => {
+            Some(2) => {
                 end_2 += 1;
             },
             _ => panic!("invalid input"),

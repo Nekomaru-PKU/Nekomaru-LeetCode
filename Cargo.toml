@@ -16,7 +16,6 @@ cargo_common_metadata = "allow"
 # lint group `pedantic`
 # always allowed for any project
 float_cmp = "allow"
-match_on_vec_items = "allow"
 missing_panics_doc = "allow"
 must_use_candidate = "allow"
 

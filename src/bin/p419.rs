@@ -1,3 +1,5 @@
+#![expect(clippy::match_on_vec_items)]
+
 fn solution_3pass(mut board: Vec<Vec<char>>) -> i32 {
     /// `O` for empty, `X` for battle ship.
     #[derive(Debug, Clone, Copy, PartialEq, Eq)]
