@@ -7,41 +7,23 @@ fn solution(
     m: i32,
     n: i32,
     head: Option<Box<ListNode>>) -> Vec<Vec<i32>> {
-    #![expect(clippy::unreachable)]
-
-    let num_rows = m as usize;
-    let num_cols = n as usize;
-
-    // to avoid accidental usages of `m` and `n`
-    #[expect(unused_variables)] {
-        let n = ();
-        let m = ();
-    }
-
-    let mut mat = vec![vec![-1; num_cols]; num_rows];
-
+    let num_rows = m;
+    let num_cols = n;
+    let mut mat = vec![vec![-1; num_cols as _]; num_rows as _];
     let mut row = 0;
     let mut col = 0;
     let mut row_step = 0;
     let mut col_step = 1;
     for num in linked_list::iter(&head) {
-        mat[row][col] = num;
-        if match (row_step, col_step) {
-            ( 0,  1) => col == num_cols - 1 || mat[row][col + 1] != -1,
-            ( 1,  0) => row == num_rows - 1 || mat[row + 1][col] != -1,
-            ( 0, -1) => col == 0            || mat[row][col - 1] != -1,
-            (-1,  0) => row == 0            || mat[row - 1][col] != -1,
-            _ => unreachable!(),
-        } {
+        mat[row as usize][col as usize] = num;
+        if  !(0..num_rows).contains(&(row + row_step)) ||
+            !(0..num_cols).contains(&(col + col_step)) ||
+            mat [(row + row_step) as usize]
+                [(col + col_step) as usize] != -1 {
             (row_step, col_step) = (col_step, -row_step);
         }
-        match (row_step, col_step) {
-            ( 0,  1) => col += 1,
-            ( 1,  0) => row += 1,
-            ( 0, -1) => col -= 1,
-            (-1,  0) => row -= 1,
-            _ => unreachable!(),
-        }
+        row += row_step;
+        col += col_step;
     }
     mat
 }
