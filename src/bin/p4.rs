@@ -2,6 +2,7 @@ fn solution_core(
     mut arr0: &[i32],
     mut arr1: &[i32],
     mut k: usize) -> i32 {
+    #![expect(clippy::missing_asserts_for_indexing)]
     loop {
         debug_assert!(!(arr0.is_empty() && arr1.is_empty()));
         debug_assert!(k < arr0.len() + arr1.len());
@@ -74,6 +75,7 @@ fn solution(arr0: Vec<i32>, arr1: Vec<i32>) -> f64 {
 }
 
 fn main() {
+    #![expect(clippy::float_cmp)]
     assert_eq!(solution(vec![1], vec![1]), 1.0);
     assert_eq!(solution(vec![1], vec![2]), 1.5);
     assert_eq!(solution(vec![1, 3], vec![2]), 2.0);

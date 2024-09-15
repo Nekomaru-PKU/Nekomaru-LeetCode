@@ -259,6 +259,7 @@ fn test_example_2() {
 }
 
 fn test_perf() {
+    #![expect(clippy::string_add)]
     use std::iter;
     use leetcode::perf;
     let dict = (0..1000).map(|n| "a".repeat(n) + "b").collect();

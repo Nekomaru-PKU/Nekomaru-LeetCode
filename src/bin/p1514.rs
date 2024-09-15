@@ -146,6 +146,7 @@ fn solution(
 }
 
 fn main() {
+    #![expect(clippy::float_cmp)]
     assert_eq!(solution(
         3,
         vec![vec![0, 1], vec![1, 2], vec![0, 2]],
