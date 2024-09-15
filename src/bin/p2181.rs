@@ -1,4 +1,7 @@
-use leetcode::prelude::linked_list::ListNode;
+use leetcode::{
+    prelude::linked_list::ListNode,
+    include::linked_list,
+};
 
 fn solution(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
     // we skip the preceeding zero node.
@@ -22,5 +25,10 @@ fn solution(head: Option<Box<ListNode>>) -> Option<Box<ListNode>> {
 }
 
 fn main() {
-    let _ = solution(None);
+    assert_eq!(solution(
+        linked_list::from_iter([0, 3, 1, 0, 4, 5, 2, 0])),
+        linked_list::from_iter([4, 11]));
+    assert_eq!(solution(
+        linked_list::from_iter([0, 1, 0, 3, 0, 2, 2, 0])),
+        linked_list::from_iter([1, 3, 4]));
 }

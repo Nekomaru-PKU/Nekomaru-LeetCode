@@ -55,9 +55,9 @@ fn main() {
     // the worst case of nums.length = 3 * 10^4,
     // and sum of every subarray is a multiple of k.
     // the result should be C(3001, 2) = 4501500
-    assert_eq!(perf::time("perf", || solution(vec![-300, 3000], 3)), 4_501_500);
+    assert_eq!(perf::time("perf", || solution(vec![-300; 3000], 3)), 4_501_500);
 
     // the worst case of nums.length = 3 * 10^4,
     // and sum of every subarray is different mod k.
-    assert_eq!(perf::time("perf", || solution(vec![-1, 3000], 3001)), 0);
+    assert_eq!(perf::time("perf", || solution(vec![-1; 3000], 3001)), 0);
 }

@@ -1,4 +1,7 @@
-use leetcode::prelude::linked_list::ListNode;
+use leetcode::{
+    prelude::linked_list::ListNode,
+    include::linked_list,
+};
 
 fn solution(
     l1: Option<Box<ListNode>>,
@@ -33,4 +36,17 @@ fn solution(
     l1
 }
 
-fn main() { let _ = solution(None, None); }
+fn main() {
+    assert_eq!(solution(
+        linked_list::from_iter([2, 4, 3]),
+        linked_list::from_iter([5, 6, 4])),
+        linked_list::from_iter([7, 0, 8]));
+    assert_eq!(solution(
+        linked_list::from_iter([0]),
+        linked_list::from_iter([0])),
+        linked_list::from_iter([0]));
+    assert_eq!(solution(
+        linked_list::from_iter([9, 9, 9, 9, 9, 9, 9]),
+        linked_list::from_iter([9, 9, 9, 9])),
+        linked_list::from_iter([8, 9, 9, 9, 0, 0, 0, 1]));
+}

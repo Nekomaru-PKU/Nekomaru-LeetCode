@@ -23,7 +23,7 @@ fn solution(n: i32) -> i32 {
 fn main() {
     assert_eq!(solution(3), 3);
     assert_eq!(solution(1), 0);
-    for i in 0..=1000 { println!("{i}: {}", solution(i)); }
+    for i in 1..=1000 { println!("{i}: {}", solution(i)); }
     let _ = solution_precomputed(0);
 }
 

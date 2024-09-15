@@ -68,7 +68,7 @@ fn main() {
     assert!( solution(vec![2, 10000], 2));
     assert!(!solution(vec![2, 10000], 20001));
 
-    let mut vec = vec![1, 10000];
+    let mut vec = vec![1; 10000];
     vec[9998] = 10001;
     vec[9999] = 10001;
     assert!(solution(vec.clone(), 10001));
