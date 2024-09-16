@@ -1,32 +1,22 @@
-mod math {
-    use std::{
-        ops,
-        cmp::Ordering,
-    };
+mod math_ext {
+    use leetcode::include::math::*;
+    use core::ops::*;
 
-    pub fn gcd<T>(a: T, b: T) -> T
+    pub fn gcd_ext<T>(a: T, b: T) -> T
     where
         T: Default + Copy + Ord
-            + ops::Neg<Output = T>
-            + ops::Rem<Output = T> {
+            + Neg<Output = T>
+            + Rem<Output = T> {
+        use core::cmp::Ordering::*;
         let zero = T::default();
         match (a.cmp(&zero), b.cmp(&zero)) {
-            (Ordering::Equal, _) => b,
-            (_, Ordering::Equal) => a,
-            (Ordering::Less, _) => gcd(-a, b),
-            (_, Ordering::Less) => gcd(a, -b),
-            (Ordering::Greater, Ordering::Greater) =>
-                match T::cmp(&a, &b) {
-                    Ordering::Less => gcd(b, a),
-                    Ordering::Equal => a,
-                    Ordering::Greater => {
-                        let (mut a, mut b) = (a, b);
-                        while b > zero {
-                            (a, b) = (b, a % b);
-                        }
-                        a
-                    }
-                },
+            (Equal, Equal) => panic!("gcd(0, 0) is undefined"),
+            (Equal, _) => b,
+            (_, Equal) => a,
+            (Less, Less) => self::gcd(-a, -b),
+            (Less, Greater) => self::gcd(-a, b),
+            (Greater, Less) => self::gcd(a, -b),
+            (Greater, Greater) => self::gcd(a, b),
         }
     }
 
@@ -35,14 +25,14 @@ mod math {
         (a1, b1): (T, T)) -> (T, T)
     where
         T: Default + Copy + Ord
-            + ops::Neg<Output = T>
-            + ops::Add<Output = T>
-            + ops::Mul<Output = T>
-            + ops::Div<Output = T>
-            + ops::Rem<Output = T> {
+            + Neg<Output = T>
+            + Add<Output = T>
+            + Mul<Output = T>
+            + Div<Output = T>
+            + Rem<Output = T> {
         let a = a0 * b1 + a1 * b0;
         let b = b0 * b1;
-        let gcd = gcd(a, b);
+        let gcd = self::gcd_ext(a, b);
         (a / gcd, b / gcd)
     }
 }
@@ -71,19 +61,19 @@ pub fn solution(s: String) -> String {
                 State::NumDenum(num, 0),
             (b'+', State::None) => State::None,
             (b'+', State::NumDenum(num, denum)) => {
-                acc = math::frac_add(acc, (num, denum));
+                acc = math_ext::frac_add(acc, (num, denum));
                 State::None
             },
             (b'-', State::None) => State::Neg,
             (b'-', State::NumDenum(num, denum)) => {
-                acc = math::frac_add(acc, (num, denum));
+                acc = math_ext::frac_add(acc, (num, denum));
                 State::Neg
             },
             _ => panic!(),
         }
     }
 
-    acc = math::frac_add(acc, {
+    acc = math_ext::frac_add(acc, {
         let State::NumDenum(num, denum) = state else {
             panic!();
         };

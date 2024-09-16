@@ -1,25 +1,8 @@
-mod math {
-    use std::ops;
-
-    pub fn gcd<T>(a: T, b: T) -> T
-    where
-        T: Default + Copy + Ord
-            + ops::Rem<Output = T> {
-        let zero = T::default();
-        debug_assert!(a > zero);
-        debug_assert!(b > zero);
-        if a == b { return a; }
-        let (mut a, mut b) = (
-            T::max(a, b),
-            T::min(a, b));
-        while b > zero {
-            (a, b) = (b, a % b);
-        }
-        a
-    }
-}
-
-use leetcode::prelude::linked_list::ListNode;
+use leetcode::{
+    prelude::linked_list::ListNode,
+    include::linked_list,
+    include::math,
+};
 
 fn solution(mut head: Option<Box<ListNode>>)
  -> Option<Box<ListNode>> {
@@ -40,7 +23,6 @@ fn solution(mut head: Option<Box<ListNode>>)
 }
 
 fn main() {
-    use leetcode::include::linked_list;
     assert_eq!(solution(
         linked_list::from_iter([18, 6, 10, 3])),
         linked_list::from_iter([18, 6, 6, 2, 10, 1, 3]));
