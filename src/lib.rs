@@ -7,7 +7,6 @@ pub mod prelude {
         }
 
         impl ListNode {
-            #[inline]
             pub const fn new(val: i32) -> Self {
                 Self { next: None, val }
             }
@@ -28,7 +27,6 @@ pub mod prelude {
         }
 
         impl TreeNode {
-            #[inline]
             pub const fn new(val: i32) -> Self {
                 Self { val, left: None, right: None }
             }
@@ -49,7 +47,6 @@ pub mod input {
     impl Input<String> for &str { #[inline] fn input(self) -> String { self.to_owned() } }
 
     impl<T, U: Input<T>, const N: usize> Input<Vec<T>> for [U; N] {
-        #[inline]
         fn input(self) -> Vec<T> {
             self.into_iter().map(Input::input).collect()
         }
@@ -57,7 +54,6 @@ pub mod input {
 }
 
 pub mod cmp {
-    #[inline]
     pub fn eq_any_order<T: PartialEq>(v1: &[T], v2: &[T]) -> bool {
         v1.iter().all(|item| v2.contains(item)) &&
         v2.iter().all(|item| v1.contains(item))
@@ -65,7 +61,6 @@ pub mod cmp {
 }
 
 pub mod perf {
-    #[inline]
     pub fn time<T, F: FnOnce() -> T>(name: &str, inner_fn: F) -> T {
         use std::time::Instant;
         let start = Instant::now();

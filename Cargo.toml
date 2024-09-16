@@ -74,3 +74,4 @@ use_debug = "allow"
 # lint group `restriction`, intentionally allowed for nekomaru-leetcode only
 allow_attributes_without_reason = "allow"
 missing_assert_message = "allow"
+missing_inline_in_public_items = "allow"
