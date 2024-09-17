@@ -56,9 +56,18 @@ pub mod input {
 }
 
 pub mod cmp {
-    pub fn eq_any_order<T: PartialEq>(v1: &[T], v2: &[T]) -> bool {
-        v1.iter().all(|item| v2.contains(item)) &&
-        v2.iter().all(|item| v1.contains(item))
+    pub fn eq_any_order<T1, T2, I1, I2>(i1: I1, i2: I2) -> bool
+    where
+        T1: PartialEq<T2>,
+        T2: PartialEq<T1>,
+        I1: Clone + IntoIterator<Item = T1>,
+        I2: Clone + IntoIterator<Item = T2>, {
+        i1.clone().into_iter().all(|v1| {
+            i2.clone().into_iter().find(|v2| v1.eq(v2)).is_some()
+        }) &&
+        i2.clone().into_iter().all(|v2| {
+            i1.clone().into_iter().find(|v1| v2.eq(v1)).is_some()
+        })
     }
 }
 
