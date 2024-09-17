@@ -1,15 +1,17 @@
 
 fn solution(s1: String, s2: String) -> Vec<String> {
-    use core::ops::*;
+    use core::ops::AddAssign;
     use std::collections::HashMap;
     let mut freq = HashMap::<&str, u32>::new();
     for word in Iterator::chain(
         s1.split(' '),
         s2.split(' ')) {
-        freq.entry(word).or_default().add_assign(1);
+        freq.entry(word)
+            .or_default()
+            .add_assign(1);
     }
     freq.iter()
-        .filter(|(_, &freq)| freq == 1)
+        .filter(|&(_, &freq)| freq == 1)
         .map(|(&word, _)| word.to_owned())
         .collect()
 }

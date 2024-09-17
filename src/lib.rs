@@ -63,10 +63,10 @@ pub mod cmp {
         I1: Clone + IntoIterator<Item = T1>,
         I2: Clone + IntoIterator<Item = T2>, {
         i1.clone().into_iter().all(|v1| {
-            i2.clone().into_iter().find(|v2| v1.eq(v2)).is_some()
+            i2.clone().into_iter().any(|v2| v1 == v2)
         }) &&
-        i2.clone().into_iter().all(|v2| {
-            i1.clone().into_iter().find(|v1| v2.eq(v1)).is_some()
+        i2.into_iter().all(|v2| {
+            i1.clone().into_iter().any(|v1| v2 == v1)
         })
     }
 }

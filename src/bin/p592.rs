@@ -1,13 +1,13 @@
 mod math_ext {
-    use leetcode::include::math::*;
-    use core::ops::*;
+    use leetcode::include::math::gcd;
+    use core::ops;
 
     pub fn gcd_ext<T>(a: T, b: T) -> T
     where
         T: Default + Copy + Ord
-            + Neg<Output = T>
-            + Rem<Output = T> {
-        use core::cmp::Ordering::*;
+            + ops::Neg<Output = T>
+            + ops::Rem<Output = T> {
+        use core::cmp::Ordering::{Equal, Less, Greater};
         let zero = T::default();
         match (a.cmp(&zero), b.cmp(&zero)) {
             (Equal, Equal) => panic!("gcd(0, 0) is undefined"),
@@ -25,11 +25,11 @@ mod math_ext {
         (a1, b1): (T, T)) -> (T, T)
     where
         T: Default + Copy + Ord
-            + Neg<Output = T>
-            + Add<Output = T>
-            + Mul<Output = T>
-            + Div<Output = T>
-            + Rem<Output = T> {
+            + ops::Neg<Output = T>
+            + ops::Add<Output = T>
+            + ops::Mul<Output = T>
+            + ops::Div<Output = T>
+            + ops::Rem<Output = T> {
         let a = a0 * b1 + a1 * b0;
         let b = b0 * b1;
         let gcd = self::gcd_ext(a, b);
