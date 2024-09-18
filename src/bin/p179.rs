@@ -3,15 +3,17 @@ fn solution(nums: Vec<i32>) -> String {
         nums.iter()
             .map(i32::to_string)
             .collect::<Vec<_>>();
-    nums.sort_unstable_by(|a, b| String::cmp(
-        &(a.clone() + b),
-        &(b.clone() + a)));
+    nums.sort_unstable_by(|a, b| Ord::cmp(
+        &format!("{a}{b}"),
+        &format!("{b}{a}")));
     nums.reverse();
     let out = nums.join("");
-    let out = out.trim_start_matches("0");
-    out .is_empty()
-        .then_some("0".to_owned())
-        .unwrap_or(out.to_owned())
+    let out = out.trim_start_matches('0');
+    if !out.is_empty() {
+        out
+    } else {
+        "0"
+    }.to_owned()
 }
 
 fn main() {
