@@ -1,8 +1,22 @@
-use leetcode::include::iter_ext;
+mod iter {
+    pub use core::iter::*;
+
+    pub fn product<T0, T1, I0, I1>(outer: I0, inner: I1)
+     -> impl Iterator<Item = (T0, T1)>
+    where
+        T0: Clone,
+        I0: IntoIterator<Item = T0>,
+        I1: IntoIterator<Item = T1> + Clone {
+        outer.into_iter().flat_map(move |v0| {
+            inner.clone().into_iter().map(move |v1| {
+                (v0.clone(), v1)
+            })
+        })
+    }
+}
 
 fn solution(grid: Vec<Vec<i32>>) -> i32 {
     use core::array;
-    use core::iter;
     let num_rows = grid.len();
     let num_cols = grid.first().map(Vec::len).unwrap_or_default();
     let rows_cols_diagnols =
@@ -13,9 +27,9 @@ fn solution(grid: Vec<Vec<i32>>) -> i32 {
             .chain(iter::once(array::from_fn::<_, 3, _>(|kk| (kk, 2 - kk))))
             .collect::<Vec<_>>();
     (num_rows >= 3 && num_cols >= 3).then(|| {
-        iter_ext::product(0..=(num_rows - 3), 0..=(num_cols - 3))
+        iter::product(0..=(num_rows - 3), 0..=(num_cols - 3))
             .filter(|&(i, j)| {
-                iter_ext::product(0..3, 0..3)
+                iter::product(0..3, 0..3)
                     .map(|(ii, jj)| 1u16 << (grid[i + ii][j + jj] - 1))
                     .sum::<u16>() == 0x01FF &&
                 rows_cols_diagnols.iter().all(|cond| {

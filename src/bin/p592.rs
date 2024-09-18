@@ -1,6 +1,16 @@
-mod math_ext {
-    use leetcode::include::math::gcd;
+mod math {
     use core::ops;
+
+    pub fn gcd<T>(mut a: T, mut b: T) -> T
+    where
+        T: Default + Copy + Ord + ops::Rem<Output = T> {
+        let zero = T::default();
+        debug_assert!(a > zero);
+        debug_assert!(b > zero);
+        if    a < b    { (a, b) = (b, a); }
+        while b > zero { (a, b) = (b, a % b); }
+        a
+    }
 
     pub fn gcd_ext<T>(a: T, b: T) -> T
     where
@@ -61,19 +71,19 @@ pub fn solution(s: String) -> String {
                 State::NumDenum(num, 0),
             (b'+', State::None) => State::None,
             (b'+', State::NumDenum(num, denum)) => {
-                acc = math_ext::frac_add(acc, (num, denum));
+                acc = math::frac_add(acc, (num, denum));
                 State::None
             },
             (b'-', State::None) => State::Neg,
             (b'-', State::NumDenum(num, denum)) => {
-                acc = math_ext::frac_add(acc, (num, denum));
+                acc = math::frac_add(acc, (num, denum));
                 State::Neg
             },
             _ => panic!(),
         }
     }
 
-    acc = math_ext::frac_add(acc, {
+    acc = math::frac_add(acc, {
         let State::NumDenum(num, denum) = state else {
             panic!();
         };
