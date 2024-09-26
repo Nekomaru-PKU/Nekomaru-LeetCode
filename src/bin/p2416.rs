@@ -7,9 +7,9 @@ mod trie {
 
     pub fn insert<S: Iterator<Item = u8>>(
         root: &mut Option<Box<TrieNode>>,
-        mut iter: S) {
+        iter: S) {
         let mut next = root;
-        while let Some(c) = iter.next() {
+        for c in iter {
             let node = next.get_or_insert(Box::default());
             node.num_terminals_in_subtree += 1;
             next = &mut node.children[(c - b'a') as usize];
@@ -25,12 +25,12 @@ pub fn solution(words: Vec<String>) -> Vec<i32> {
         trie::insert(&mut root, word.bytes());
     }
     words.iter().map(|word| {
-        let mut iter = word.bytes();
+        let iter = word.bytes();
         let mut node = root.as_ref().unwrap().as_ref();
         let mut acc = 0;
-        while let Some(c) = iter.next() {
-            node = &node.children[(c - b'a') as usize].as_ref().unwrap();
-            acc  += node.num_terminals_in_subtree;
+        for c in iter {
+            node = node.children[(c - b'a') as usize].as_ref().unwrap();
+            acc += node.num_terminals_in_subtree;
         }
         acc
     }).collect()
