@@ -1,6 +1,5 @@
 max_width = 80
 
-fn_single_line = true
 match_arm_blocks = false
 match_block_trailing_comma = true
 overflow_delimited_expr = true
